@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Services — Gecanor Beauty Tech</title>
+<meta name="description" content="Gecanor Beauty Tech — full service development of cosmetic and food supplement brands, from formulation to market launch. Barcelona · Chengdu.">
+<link rel="icon" href="../assets/gr.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+<style>
+  :root { --d-font: 'Satoshi'; --d-weight: 400; --d-stretch: 100%; --d-case: uppercase; --d-scale: 0.7; --d-lh: 0.1; --d-ls: -0.04em; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+  body { margin: 0; background: #FBFBF9; color: #0B0B0B; font-family: Archivo, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #6F6E69; }
+  ::selection { background: #0B0B0B; color: #FFFFFF; }
+  @keyframes grSpin { 0% { transform: perspective(620px) rotateY(-38deg) rotateX(7deg); } 50% { transform: perspective(620px) rotateY(38deg) rotateX(-7deg); } 100% { transform: perspective(620px) rotateY(-38deg) rotateX(7deg); } }
+  @media (max-width: 760px) { [data-sticker] { scale: 0.72; } [data-reg] { grid-template-columns: 36px 1fr !important; } [data-reg] > div { grid-column: 2 !important; } }
+</style>
+<script src="../i18n.js"></script>
+<script src="../lab-i18n.js"></script>
+</helmet>
+
+<div style="width:100%;overflow-x:hidden">
+
+  <section id="top" style="position:relative;padding:20px 24px 40px">
+    <header style="display:flex;justify-content:space-between;align-items:center;gap:16px">
+      <a href="/" aria-label="Gecanor home" style="display:block;width:84px;height:70px;background:#0B0B0B;-webkit-mask:url(../assets/gr.svg) center/contain no-repeat;mask:url(../assets/gr.svg) center/contain no-repeat"></a>
+      <nav style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:22px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase">
+        <a href="/#work">Work</a>
+        <a href="#top" style="border-bottom:1px solid #0B0B0B">Services</a>
+        <a href="/#studio">Studio</a>
+        <a href="/get-started" style="padding:10px 16px;background:#0B0B0B;color:#FFFFFF" style-hover="background:#3A3A38;color:#FFFFFF">Get Started</a>
+          <span style="display:flex;align-items:center;gap:2px">
+            <sc-for list="{{ langs }}" as="l" hint-placeholder-count="3"><button type="button" onClick="{{ l.pick }}" aria-pressed="{{ l.on }}" style="background:none;border:0;padding:4px 5px;cursor:pointer;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;color:#0B0B0B;opacity:{{ l.op }};text-decoration:{{ l.ul }};text-underline-offset:4px">{{ l.code }}</button></sc-for>
+          </span>
+      </nav>
+    </header>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:18px;padding:9px 0;border-top:1px solid #0B0B0B;border-bottom:1px solid #DAD9D4;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;color:#6F6E69;text-transform:uppercase">
+      <span style="color:#0B0B0B">Technical sheet</span><span>Six disciplines</span><span>One team</span><span>Brief to shelf</span>
+    </div>
+    <h1 style="margin:72px 0 0;font-size:calc(clamp(84px,19vw,330px) * var(--d-scale, 1));line-height:calc(0.78 + var(--d-lh, 0));font-family:var(--d-font, Archivo), Helvetica, sans-serif;font-weight:var(--d-weight, 850);font-stretch:var(--d-stretch, 62%);text-transform:var(--d-case, uppercase);letter-spacing:var(--d-ls, -0.015em)">Services</h1>
+    <p style="margin:28px 0 0;max-width:46ch;font-size:clamp(18px,1.7vw,24px);line-height:1.35;font-weight:500">Six disciplines under one roof. Pick the ones you need or hand us the whole path from brief to shelf.</p>
+    <div data-draggable="1" data-sticker="1" style="position:absolute;right:8%;top:150px;padding:10px 14px;background:#0B0B0B;color:#FFFFFF;transform:rotate(-6deg);cursor:grab;touch-action:none;user-select:none;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;text-align:center;line-height:1.5">EC 1223/2009<br />compliant</div>
+    <div data-draggable="1" data-sticker="1" style="position:absolute;right:26%;top:250px;width:104px;height:104px;border-radius:50%;background:#C9C8C2;display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(9deg);cursor:grab;touch-action:none;user-select:none;font-weight:850;font-stretch:62%;text-transform:uppercase;font-size:20px;line-height:0.9">MOQ<br />2,000<br />units</div>
+  </section>
+
+  <nav style="position:sticky;top:0;z-index:50;background:#FBFBF9;border-top:1px solid #0B0B0B;border-bottom:1px solid #DAD9D4;padding:10px 24px;display:flex;flex-wrap:wrap;gap:6px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase">
+    <a href="#s01" style="padding:7px 10px;border:1px solid #BEBCB5" style-hover="background:#0B0B0B;color:#FFFFFF">01 Formula</a>
+    <a href="#s02" style="padding:7px 10px;border:1px solid #BEBCB5" style-hover="background:#0B0B0B;color:#FFFFFF">02 Manufacturing</a>
+    <a href="#s03" style="padding:7px 10px;border:1px solid #BEBCB5" style-hover="background:#0B0B0B;color:#FFFFFF">03 Regulatory</a>
+    <a href="#s04" style="padding:7px 10px;border:1px solid #BEBCB5" style-hover="background:#0B0B0B;color:#FFFFFF">04 Packaging</a>
+    <a href="#s05" style="padding:7px 10px;border:1px solid #BEBCB5" style-hover="background:#0B0B0B;color:#FFFFFF">05 Logistics</a>
+    <a href="#s06" style="padding:7px 10px;border:1px solid #BEBCB5" style-hover="background:#0B0B0B;color:#FFFFFF">06 Brand strategy</a>
+  </nav>
+
+  <section id="s01" style="padding:72px 24px 0;display:flex;flex-wrap:wrap;gap:24px 40px">
+    <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:12px">
+      <span style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#6F6E69">01 / 06</span>
+      <h2 style="margin:0;font-size:calc(clamp(38px,4.4vw,72px) * var(--d-scale, 1));line-height:calc(0.88 + var(--d-lh, 0));font-family:var(--d-font, Archivo), Helvetica, sans-serif;font-weight:var(--d-weight, 850);font-stretch:var(--d-stretch, 62%);text-transform:var(--d-case, uppercase);letter-spacing:var(--d-ls, -0.015em)">Formula development &amp; innovation</h2>
+    </div>
+    <div style="flex:2 1 520px;min-width:0">
+      <p style="margin:0 0 14px;font-size:clamp(18px,1.6vw,23px);line-height:1.4">We develop exclusive and innovative formulas for <span style="color:#6F6E69">cosmetic and nutricosmetic</span> products, tailored to the specific needs of your brand.</p>
+      <p style="margin:0;font-size:clamp(18px,1.6vw,23px);line-height:1.4">Our R&amp;D&amp;I team focuses on creating <span style="color:#6F6E69">high-performance</span> products with <span style="color:#6F6E69">scientifically-backed ingredients</span>.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:32px;padding-top:16px;border-top:1px solid #0B0B0B">
+        <div><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#6F6E69;text-transform:uppercase;margin-bottom:10px">Service</div><div style="font-size:16px;font-weight:600">Custom Formula Development</div></div>
+        <div><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#6F6E69;text-transform:uppercase;margin-bottom:10px">Description</div><p style="margin:0;font-size:15px;line-height:1.55">Creation of a unique formula based on your brand's requirements, target audience, and desired product characteristics. Includes ingredient sourcing, lab-scale sample creation, and iterative revisions.</p></div>
+        <div><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#6F6E69;text-transform:uppercase;margin-bottom:10px">Deliverables</div><div style="display:flex;flex-direction:column;gap:4px;font-size:15px;line-height:1.5"><span>• Final Product Formula</span><span>• Lab-scale Samples</span><span>• Ingredient Dossier</span><span>• Intellectual Property ownership</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s02" style="padding:88px 24px 0;display:flex;flex-wrap:wrap;gap:24px 40px">
+    <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:12px">
+      <span style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#6F6E69">02 / 06</span>
+      <h2 style="margin:0;font-size:calc(clamp(38px,4.4vw,72px) * var(--d-scale, 1));line-height:calc(0.88 + var(--d-lh, 0));font-family:var(--d-font, Archivo), Helvetica, sans-serif;font-weight:var(--d-weight, 850);font-stretch:var(--d-stretch, 62%);text-transform:var(--d-case, uppercase);letter-spacing:var(--d-ls, -0.015em)">Manufacturing &amp; production</h2>
+    </div>
+    <div style="flex:2 1 520px;min-width:0">
+      <p style="margin:0;font-size:clamp(18px,1.6vw,23px);line-height:1.4">We manage the production process to ensure the <span style="color:#6F6E69">highest quality standards</span> are met, from <span style="color:#6F6E69">raw material sourcing</span> to the <span style="color:#6F6E69">final packaged product</span>. We work with <span style="color:#6F6E69">top Spanish laboratories</span> to provide premium cosmetic products at scale.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-top:32px;border-top:1px solid #DAD9D4;border-left:1px solid #DAD9D4">
+        <sc-for list="{{ mfg }}" as="it" hint-placeholder-count="5"><div style="padding:18px;border-right:1px solid #DAD9D4;border-bottom:1px solid #DAD9D4;font-size:15px;line-height:1.45">{{ it }}</div></sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="s03" style="padding:88px 24px 0;display:flex;flex-wrap:wrap;gap:24px 40px">
+    <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:12px">
+      <span style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#6F6E69">03 / 06</span>
+      <h2 style="margin:0;font-size:calc(clamp(38px,4.4vw,72px) * var(--d-scale, 1));line-height:calc(0.88 + var(--d-lh, 0));font-family:var(--d-font, Archivo), Helvetica, sans-serif;font-weight:var(--d-weight, 850);font-stretch:var(--d-stretch, 62%);text-transform:var(--d-case, uppercase);letter-spacing:var(--d-ls, -0.015em)">Regulatory &amp; compliance services</h2>
+    </div>
+    <div style="flex:2 1 520px;min-width:0">
+      <p style="margin:0 0 32px;font-size:clamp(18px,1.6vw,23px);line-height:1.4">We ensure that your products comply with all the rigorous requirements of the <span style="color:#6F6E69">European Union's cosmetic regulations (EC) No 1223/2009</span>. Our comprehensive regulatory package covers all necessary testing, documentation, and registration to legally place your product on the market.</p>
+      <sc-for list="{{ reg }}" as="r" hint-placeholder-count="6">
+        <div data-reg="1" style="display:grid;grid-template-columns:48px minmax(160px,1fr) minmax(0,2fr);gap:12px 20px;padding:18px 0;border-top:1px solid #DAD9D4">
+          <span style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:#6F6E69">{{ r.n }}</span>
+          <span style="font-size:16px;font-weight:600;line-height:1.35">{{ r.title }}</span>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:15px;line-height:1.55;color:#2A2A28">
+            <sc-for list="{{ r.body }}" as="b" hint-placeholder-count="1"><span>{{ b }}</span></sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="s04" style="padding:88px 24px 0;display:flex;flex-wrap:wrap;gap:24px 40px">
+    <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:12px">
+      <span style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#6F6E69">04 / 06</span>
+      <h2 style="margin:0;font-size:calc(clamp(38px,4.4vw,72px) * var(--d-scale, 1));line-height:calc(0.88 + var(--d-lh, 0));font-family:var(--d-font, Archivo), Helvetica, sans-serif;font-weight:var(--d-weight, 850);font-stretch:var(--d-stretch, 62%);text-transform:var(--d-case, uppercase);letter-spacing:var(--d-ls, -0.015em)">Packaging research &amp; sourcing</h2>
+    </div>
+    <div style="flex:2 1 520px;min-width:0">
+      <p style="margin:0;font-size:clamp(18px,1.6vw,23px);line-height:1.4">We identify and source the most suitable <span style="color:#6F6E69">primary and secondary packaging</span> for your product, balancing aesthetics, functionality, sustainability, and cost-efficiency. Our network of suppliers ensures access to premium packaging solutions aligned with your brand identity.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-top:32px;border-top:1px solid #DAD9D4;border-left:1px solid #DAD9D4">
+        <sc-for list="{{ pack }}" as="it" hint-placeholder-count="5"><div style="padding:18px;border-right:1px solid #DAD9D4;border-bottom:1px solid #DAD9D4;font-size:15px;line-height:1.45">{{ it }}</div></sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="s05" style="padding:88px 24px 0;display:flex;flex-wrap:wrap;gap:24px 40px">
+    <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:12px">
+      <span style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#6F6E69">05 / 06</span>
+      <h2 style="margin:0;font-size:calc(clamp(38px,4.4vw,72px) * var(--d-scale, 1));line-height:calc(0.88 + var(--d-lh, 0));font-family:var(--d-font, Archivo), Helvetica, sans-serif;font-weight:var(--d-weight, 850);font-stretch:var(--d-stretch, 62%);text-transform:var(--d-case, uppercase);letter-spacing:var(--d-ls, -0.015em)">Logistics management</h2>
+    </div>
+    <div style="flex:2 1 520px;min-width:0">
+      <p style="margin:0;font-size:clamp(18px,1.6vw,23px);line-height:1.4">We coordinate the full logistics chain <span style="color:#6F6E69">from production to final delivery</span>, ensuring your products reach their destination on time and in perfect condition. Our logistics expertise covers both domestic and international markets.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-top:32px;border-top:1px solid #DAD9D4;border-left:1px solid #DAD9D4">
+        <sc-for list="{{ logi }}" as="it" hint-placeholder-count="5"><div style="padding:18px;border-right:1px solid #DAD9D4;border-bottom:1px solid #DAD9D4;font-size:15px;line-height:1.45">{{ it }}</div></sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="s06" style="padding:88px 24px 96px;display:flex;flex-wrap:wrap;gap:24px 40px">
+    <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:12px">
+      <span style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#6F6E69">06 / 06</span>
+      <h2 style="margin:0;font-size:calc(clamp(38px,4.4vw,72px) * var(--d-scale, 1));line-height:calc(0.88 + var(--d-lh, 0));font-family:var(--d-font, Archivo), Helvetica, sans-serif;font-weight:var(--d-weight, 850);font-stretch:var(--d-stretch, 62%);text-transform:var(--d-case, uppercase);letter-spacing:var(--d-ls, -0.015em)">Brand strategy &amp; market positioning</h2>
+    </div>
+    <div style="flex:2 1 520px;min-width:0">
+      <p style="margin:0 0 32px;font-size:clamp(18px,1.6vw,23px);line-height:1.4">We help cosmetic and supplement brands define their identity, positioning, and go-to-market strategy. From <span style="color:#6F6E69">naming and visual identity</span> to <span style="color:#6F6E69">digital presence and retail strategy</span>, we provide the strategic framework to connect your brand with its target consumer.</p>
+      <sc-for list="{{ strategy }}" as="s" hint-placeholder-count="3">
+        <div style="display:flex;flex-wrap:wrap;gap:8px 20px;padding:18px 0;border-top:1px solid #DAD9D4">
+          <span style="flex:1 1 180px;font-size:16px;font-weight:600">{{ s.name }}</span>
+          <span style="flex:2 1 300px;font-size:15px;line-height:1.55;color:#2A2A28">{{ s.desc }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:40px 24px 96px;border-top:1px solid #0B0B0B;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px">
+    <div>
+      <h2 style="margin:0 0 10px;font-size:calc(clamp(56px,10vw,180px) * var(--d-scale, 1));line-height:calc(0.8 + var(--d-lh, 0));font-family:var(--d-font, Archivo), Helvetica, sans-serif;font-weight:var(--d-weight, 850);font-stretch:var(--d-stretch, 62%);text-transform:var(--d-case, uppercase);letter-spacing:var(--d-ls, -0.015em)">Work with us!</h2>
+      <p style="margin:0;font-size:clamp(18px,1.8vw,26px);font-weight:500">Let's create your next beauty innovation.</p>
+    </div>
+    <a href="/get-started" style="padding:22px 44px;background:#0B0B0B;color:#FFFFFF;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase" style-hover="background:#3A3A38;color:#FFFFFF">Get Started ↗</a>
+  </section>
+
+  <footer style="background:#0B0B0B;color:#FFFFFF;padding:48px 24px 24px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;font-size:15px;line-height:1.5">
+      <div><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:10px">Let's collaborate!</div><div style="display:flex;flex-direction:column;gap:4px"><a href="mailto:social@gecanor.com">social@gecanor.com</a><a href="https://www.instagram.com/gecanor.beautytech/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://www.linkedin.com/company/gecanor/posts/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div></div>
+      <div><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:10px">Spain</div>C/ Balmes 127, Principal 2ºA<br />08008 Barcelona</div>
+      <div><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:10px">China</div>Wanke Jiazhouwan V-Pai, 501<br />610036 Chengdu</div>
+      <div style="display:flex;flex-direction:column;gap:4px"><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:6px">Index</div><a href="/">Home</a><a href="#top">Services</a><a href="/get-started">Get Started</a></div>
+    </div>
+    <img src="../assets/gecanor-logo-bt-white.png" alt="gecanor. beauty tech" style="display:block;margin:20px 0 14px;width:min(100%,720px);height:auto" />
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:18px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase"><span>© 2026 Gecanor Beauty Tech</span><span>Ref. GCN — Barcelona / Chengdu</span></div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;displayFont&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Satoshi&quot;,&quot;Instrument Sans Condensed&quot;,&quot;Archivo Condensed&quot;,&quot;Big Shoulders&quot;,&quot;Barlow Condensed&quot;,&quot;Saira Extra Condensed&quot;],&quot;default&quot;:&quot;Satoshi&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Typography&quot;}}">
+const MFG = ['• MOQ from 2,000 units per reference','• End-to-end production management','• Raw material sourcing and quality control','• Batch release and quality assurance documentation','• Scalable production for growing brands'];
+const PACK = ['• Primary container sourcing (bottles, tubes, jars, pumps)','• Secondary packaging design coordination','• Sustainability and eco-friendly options','• Supplier negotiation and quality validation','• Compatibility testing with formulas'];
+const LOGI = ['• Warehouse and inventory management','• Domestic and international shipping coordination','• Import/export documentation','• Cold-chain logistics for sensitive formulas','• Customs and compliance support'];
+const REG = [
+  ['Stability & Compatibility Studies', ['• Product Stability Test: To ensure the product maintains its physical, chemical, and microbiological quality under various conditions over time.', '• Container Compatibility Test: To verify the compatibility between the product and its final packaging, ensuring no adverse reactions occur.']],
+  ['Microbiological Testing', ['Performed on each production batch to guarantee the product is free from harmful microorganisms and meets the required quality standards.']],
+  ['Challenge Test (Preservative Efficacy Test)', ['This test evaluates the effectiveness of the product’s preservative system against microbial contamination during its shelf-life and consumer use.']],
+  ['Patch Test', ['A skin compatibility test performed on human volunteers to ensure the product does not cause irritation or allergic reactions.']],
+  ['Product Information File (PIF)', ['Compilation of the complete technical dossier for the cosmetic product, containing all data, reports, and information required by the EU regulation.']],
+  ['Safety Assessment & CPNP Registration', ['• Safety Evaluation: A thorough safety assessment of the final product, conducted and signed by a qualified toxicologist or pharmacist.', '• CPNP Registration: Notification of the product in the European Cosmetic Products Notification Portal (CPNP), which is mandatory before placing it on the market.']]
+];
+const STRATEGY = [
+  { name: 'Brand Identity', desc: 'Naming, visual identity, tone of voice, and brand guidelines tailored to your target audience and market positioning.' },
+  { name: 'Market Positioning', desc: 'Competitive analysis, target consumer definition, pricing strategy, and channel selection to maximize market impact.' },
+  { name: 'Go-to-Market Strategy', desc: 'Launch planning, digital marketing strategy, influencer and PR approach, and retail/e-commerce channel development.' }
+];
+
+class Component extends DCLogic {
+  z = 600;
+  componentDidUpdate() { this.applyFont(); this.runI18n(); }
+  applyFont() {
+    const F = {
+      'Archivo Condensed': ['Archivo', '850', '62%', 'uppercase', '1', '0'],
+      'Big Shoulders': ["'Big Shoulders', 'Big Shoulders Display'", '800', '100%', 'uppercase', '1.08', '0'],
+      'Barlow Condensed': ["'Barlow Condensed'", '700', '100%', 'uppercase', '0.98', '0.02'],
+      'Saira Extra Condensed': ["'Saira Extra Condensed'", '800', '100%', 'uppercase', '1.12', '0.02'],
+      'Satoshi': ["'Satoshi'", '400', '100%', 'uppercase', '0.7', '0.1', '-0.04em'],
+      'Instrument Sans Condensed': ["'Instrument Sans'", '700', '75%', 'uppercase', '0.86', '0.04']
+    };
+    const k = this.props.displayFont || 'Satoshi';
+    const f = F[k] || F['Satoshi'];
+    const s = document.documentElement.style;
+    ['--d-font', '--d-weight', '--d-stretch', '--d-case', '--d-scale', '--d-lh', '--d-ls'].forEach((n, i) => s.setProperty(n, f[i] || (i === 6 ? '-0.015em' : '')));
+  }
+  componentDidMount() {
+    this.lang = this.getLang();
+    this.i18nTimers = [0, 150, 500, 1200, 2500].map((d) => setTimeout(() => this.runI18n(), d));
+    this.applyFont();
+    this.onDown = (e) => {
+      if (e.target.closest('button, a')) return;
+      const grip = e.target.closest('[data-drag-handle], [data-sticker]');
+      const el = grip && grip.closest('[data-draggable]');
+      if (!el) return;
+      e.preventDefault();
+      const sx = e.clientX, sy = e.clientY, ox = +el.dataset.x || 0, oy = +el.dataset.y || 0;
+      el.style.zIndex = String(++this.z);
+      const move = (ev) => { const x = ox + ev.clientX - sx, y = oy + ev.clientY - sy; el.dataset.x = x; el.dataset.y = y; el.style.translate = `${x}px ${y}px`; };
+      const up = () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', up);
+    };
+    document.addEventListener('pointerdown', this.onDown);
+  }
+  componentWillUnmount() { document.removeEventListener('pointerdown', this.onDown); }
+  getLang() { try { return localStorage.getItem('gecanor-lang') || 'EN'; } catch (e) { return 'EN'; } }
+  runI18n() { if (window.LabI18n) window.LabI18n.translate(this.lang || 'EN'); }
+  pickLang(code) {
+    this.lang = code;
+    try { localStorage.setItem('gecanor-lang', code); } catch (e) {}
+    this.forceUpdate(() => this.runI18n());
+  }
+  renderVals() {
+    return {
+      langs: ['EN', 'ES', 'CAT'].map((code) => {
+        const on = (this.lang || 'EN') === code;
+        return { code, on, op: on ? 1 : 0.45, ul: on ? 'underline' : 'none', pick: () => this.pickLang(code) };
+      }),
+      mfg: MFG, pack: PACK, logi: LOGI, strategy: STRATEGY,
+      reg: REG.map(([title, body], i) => ({ title, body, n: String(i + 1).padStart(2, '0') }))
+    };
+  }
+}
+
+</script>
+</body>
+</html>
