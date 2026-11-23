@@ -30,7 +30,8 @@
   a:hover { color: #6F6E69; }
   ::selection { background: #0B0B0B; color: #FFFFFF; }
   @keyframes grSpin { 0% { transform: perspective(620px) rotateY(-38deg) rotateX(7deg); } 50% { transform: perspective(620px) rotateY(38deg) rotateX(-7deg); } 100% { transform: perspective(620px) rotateY(-38deg) rotateX(7deg); } }
-  @media (max-width: 760px) { [data-sticker] { scale: 0.72; } [data-sv1] { translate: -41px -12px; } [data-sv2] { translate: 89px -64px; } [data-reg] { grid-template-columns: 36px 1fr !important; } [data-reg] > div { grid-column: 2 !important; } }
+  @media (max-width: 760px) { [data-sticker] { scale: 0.72; } [data-sv1] { translate: -41px -12px; } [data-sv2] { translate: 89px -64px; scale: 0.9; } [data-reg] { grid-template-columns: 36px 1fr !important; } [data-reg] > div { grid-column: 2 !important; } }
+  @media (max-width: 760px) { header { gap: 8px !important; } header nav { gap: 10px 9px !important; font-size: 11px !important; letter-spacing: 0.02em !important; } html[lang="en"] header nav { gap: 10px 12px !important; font-size: 12px !important; letter-spacing: 0.06em !important; } html[lang="ca"] header nav { gap: 10px 12px !important; letter-spacing: 0.04em !important; } header nav > span { flex-basis: 100%; justify-content: flex-end; } header nav > a:last-of-type { margin-top: 5px; } header > a[aria-label="Gecanor home"] { flex: 0 0 74px !important; width: 74px !important; height: 64px !important; margin-left: -12px !important; } }
 </style>
 <script src="../i18n.js"></script>
 <script src="../lab-i18n.js"></script>
@@ -45,6 +46,7 @@
         <a href="/#work">Work</a>
         <a href="#top" style="border-bottom:1px solid #0B0B0B">Services</a>
         <a href="/#studio">Studio</a>
+        <a href="/resources">Resources</a>
         <a href="/get-started" style="padding:10px 16px;background:#0B0B0B;color:#FFFFFF" style-hover="background:#3A3A38;color:#FFFFFF">Get Started</a>
           <span style="display:flex;align-items:center;gap:2px">
             <sc-for list="{{ langs }}" as="l" hint-placeholder-count="3"><button type="button" onClick="{{ l.pick }}" aria-pressed="{{ l.on }}" style="background:none;border:0;padding:4px 5px;cursor:pointer;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;color:#0B0B0B;opacity:{{ l.op }};text-decoration:{{ l.ul }};text-underline-offset:4px">{{ l.code }}</button></sc-for>
@@ -57,7 +59,7 @@
     <h1 style="margin:72px 0 0;font-size:calc(clamp(84px,19vw,330px) * var(--d-scale, 1));line-height:calc(0.78 + var(--d-lh, 0));font-family:var(--d-font, Archivo), Helvetica, sans-serif;font-weight:var(--d-weight, 850);font-stretch:var(--d-stretch, 62%);text-transform:var(--d-case, uppercase);letter-spacing:var(--d-ls, -0.015em)">Services</h1>
     <p style="margin:28px 0 0;max-width:46ch;font-size:clamp(18px,1.7vw,24px);line-height:1.35;font-weight:500">Six disciplines under one roof. Pick the ones you need or hand us the whole path from brief to shelf.</p>
     <div data-draggable="1" data-sticker="1" data-sv1="1" style="position:absolute;right:8%;top:150px;padding:10px 14px;background:#0B0B0B;color:#FFFFFF;transform:rotate(-6deg);cursor:grab;touch-action:none;user-select:none;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;text-align:center;line-height:1.5">EC 1223/2009<br />compliant</div>
-    <div data-draggable="1" data-sticker="1" data-sv2="1" style="position:absolute;right:26%;top:250px;width:104px;height:104px;border-radius:50%;background:#C9C8C2;display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(9deg);cursor:grab;touch-action:none;user-select:none;font-weight:850;font-stretch:62%;text-transform:uppercase;font-size:20px;line-height:0.9">MOQ<br />2,000<br />units</div>
+    <div data-draggable="1" data-sticker="1" data-sv2="1" style="position:absolute;right:26%;top:250px;width:104px;height:104px;border-radius:50%;background:#C9C8C2;display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(9deg);cursor:grab;touch-action:none;user-select:none;font-weight:850;font-stretch:62%;text-transform:uppercase;font-size:20px;line-height:0.9">MOQ<br />500<br />units</div>
   </section>
 
   <nav style="position:sticky;top:0;z-index:50;background:#FBFBF9;border-top:1px solid #0B0B0B;border-bottom:1px solid #DAD9D4;padding:10px 24px;display:flex;flex-wrap:wrap;gap:6px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase">
@@ -172,7 +174,7 @@
       <div><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:10px">Let's collaborate!</div><div style="display:flex;flex-direction:column;gap:4px"><a href="mailto:social@gecanor.com">social@gecanor.com</a><a href="https://www.instagram.com/gecanor.beautytech/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://www.linkedin.com/company/gecanor/posts/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div></div>
       <div><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:10px">Spain</div>C/ Balmes 127, Principal 2ºA<br />08008 Barcelona</div>
       <div><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:10px">China</div>Wanke Jiazhouwan V-Pai, 501<br />610036 Chengdu</div>
-      <div style="display:flex;flex-direction:column;gap:4px"><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:6px">Index</div><a href="/">Home</a><a href="#top">Services</a><a href="/get-started">Get Started</a></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:6px">Index</div><a href="/">Home</a><a href="#top">Services</a><a href="/resources">Resources</a><a href="/get-started">Get Started</a></div>
     </div>
     <img src="../assets/gecanor-logo-bt-white.png" alt="gecanor. beauty tech" style="display:block;margin:20px 0 14px;width:min(100%,720px);height:auto" />
     <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:18px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase"><span>© 2026 Gecanor Beauty Tech</span><span>Ref. GCN — Barcelona / Chengdu</span></div>
@@ -181,7 +183,7 @@
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;displayFont&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Satoshi&quot;,&quot;Instrument Sans Condensed&quot;,&quot;Archivo Condensed&quot;,&quot;Big Shoulders&quot;,&quot;Barlow Condensed&quot;,&quot;Saira Extra Condensed&quot;],&quot;default&quot;:&quot;Satoshi&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Typography&quot;}}">
-const MFG = ['• MOQ from 2,000 units per reference','• End-to-end production management','• Raw material sourcing and quality control','• Batch release and quality assurance documentation','• Scalable production for growing brands'];
+const MFG = ['• MOQ from 500 units per reference','• End-to-end production management','• Raw material sourcing and quality control','• Batch release and quality assurance documentation','• Scalable production for growing brands'];
 const PACK = ['• Primary container sourcing (bottles, tubes, jars, pumps)','• Secondary packaging design coordination','• Sustainability and eco-friendly options','• Supplier negotiation and quality validation','• Compatibility testing with formulas'];
 const LOGI = ['• Warehouse and inventory management','• Domestic and international shipping coordination','• Import/export documentation','• Cold-chain logistics for sensitive formulas','• Customs and compliance support'];
 const REG = [

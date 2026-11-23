@@ -34,6 +34,7 @@
   ::selection { background: #0B0B0B; color: #FFFFFF; }
   @keyframes grSpin { 0% { transform: perspective(620px) rotateY(-38deg) rotateX(7deg); } 50% { transform: perspective(620px) rotateY(38deg) rotateX(-7deg); } 100% { transform: perspective(620px) rotateY(-38deg) rotateX(7deg); } }
   @media (max-width: 760px) { [data-sticker] { scale: 0.72; } [data-gs48] { translate: 71px -67px; } }
+  @media (max-width: 760px) { header { gap: 8px !important; } header nav { gap: 10px 9px !important; font-size: 11px !important; letter-spacing: 0.02em !important; } html[lang="en"] header nav { gap: 10px 12px !important; font-size: 12px !important; letter-spacing: 0.06em !important; } html[lang="ca"] header nav { gap: 10px 12px !important; letter-spacing: 0.04em !important; } header nav > span { flex-basis: 100%; justify-content: flex-end; } header nav > a:last-of-type { margin-top: 5px; } header > a[aria-label="Gecanor home"] { flex: 0 0 74px !important; width: 74px !important; height: 64px !important; margin-left: -12px !important; } }
 </style>
 <script src="../i18n.js"></script>
 <script src="../lab-i18n.js"></script>
@@ -48,6 +49,7 @@
         <a href="/#work">Work</a>
         <a href="/services">Services</a>
         <a href="/#studio">Studio</a>
+        <a href="/resources">Resources</a>
         <a href="#top" style="padding:10px 16px;background:#0B0B0B;color:#FFFFFF" style-hover="background:#3A3A38;color:#FFFFFF">Get Started</a>
           <span style="display:flex;align-items:center;gap:2px">
             <sc-for list="{{ langs }}" as="l" hint-placeholder-count="3"><button type="button" onClick="{{ l.pick }}" aria-pressed="{{ l.on }}" style="background:none;border:0;padding:4px 5px;cursor:pointer;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;color:#0B0B0B;opacity:{{ l.op }};text-decoration:{{ l.ul }};text-underline-offset:4px">{{ l.code }}</button></sc-for>
@@ -128,7 +130,7 @@
         <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:600">First order quantity (units)</span><input type="text" placeholder="5,000" style="padding:13px 14px;background:#FFFFFF;border:1px solid #DAD9D4;font-size:15px" /></label>
         <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:600">Year 1 projection (units)</span><input type="text" placeholder="50,000" style="padding:13px 14px;background:#FFFFFF;border:1px solid #DAD9D4;font-size:15px" /></label>
       </div>
-      <p style="margin:14px 0 0;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#6F6E69;text-transform:uppercase">Minimum order quantity starts at 2,000 units per reference.</p>
+      <p style="margin:14px 0 0;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#6F6E69;text-transform:uppercase">Minimum order quantity starts at 500 units per reference.</p>
     </fieldset>
 
     <fieldset style="border:0;padding:0;margin:0">
@@ -147,7 +149,7 @@
       <div><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:10px">Let's collaborate!</div><div style="display:flex;flex-direction:column;gap:4px"><a href="mailto:social@gecanor.com">social@gecanor.com</a><a href="https://www.instagram.com/gecanor.beautytech/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://www.linkedin.com/company/gecanor/posts/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div></div>
       <div><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:10px">Spain</div>C/ Balmes 127, Principal 2ºA<br />08008 Barcelona</div>
       <div><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:10px">China</div>Wanke Jiazhouwan V-Pai, 501<br />610036 Chengdu</div>
-      <div style="display:flex;flex-direction:column;gap:4px"><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:6px">Index</div><a href="/">Home</a><a href="/services">Services</a><a href="#top">Get Started</a></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:6px">Index</div><a href="/">Home</a><a href="/services">Services</a><a href="/resources">Resources</a><a href="#top">Get Started</a></div>
     </div>
     <img src="../assets/gecanor-logo-bt-white.png" alt="gecanor. beauty tech" style="display:block;margin:20px 0 14px;width:min(100%,720px);height:auto" />
     <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:18px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase"><span>© 2026 Gecanor Beauty Tech</span><span>Ref. GCN — Barcelona / Chengdu</span></div>
