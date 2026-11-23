@@ -30,7 +30,7 @@
   a:hover { color: #6F6E69; }
   ::selection { background: #0B0B0B; color: #FFFFFF; }
   @keyframes grSpin { 0% { transform: perspective(620px) rotateY(-38deg) rotateX(7deg); } 50% { transform: perspective(620px) rotateY(38deg) rotateX(-7deg); } 100% { transform: perspective(620px) rotateY(-38deg) rotateX(7deg); } }
-  @media (max-width: 760px) { [data-sticker] { scale: 0.72; } [data-sv1] { translate: -41px -12px; } [data-sv2] { translate: 89px -64px; scale: 0.9; } [data-reg] { grid-template-columns: 36px 1fr !important; } [data-reg] > div { grid-column: 2 !important; } }
+  @media (max-width: 760px) { [data-sticker] { scale: 0.72; } [data-sv1] { translate: -139px 97px; } [data-sv2] { translate: 89px -64px; scale: 0.9; } [data-reg] { grid-template-columns: 36px 1fr !important; } [data-reg] > div { grid-column: 2 !important; } }
   @media (max-width: 760px) { header { gap: 8px !important; } header nav { gap: 10px 9px !important; font-size: 11px !important; letter-spacing: 0.02em !important; } html[lang="en"] header nav { gap: 10px 12px !important; font-size: 12px !important; letter-spacing: 0.06em !important; } html[lang="ca"] header nav { gap: 10px 12px !important; letter-spacing: 0.04em !important; } header nav > span { flex-basis: 100%; justify-content: flex-end; } header nav > a:last-of-type { margin-top: 5px; } header > a[aria-label="Gecanor home"] { flex: 0 0 74px !important; width: 74px !important; height: 64px !important; margin-left: -12px !important; } }
 </style>
 <script src="../i18n.js"></script>
@@ -235,6 +235,7 @@ class Component extends DCLogic {
       window.addEventListener('pointerup', up);
     };
     document.addEventListener('pointerdown', this.onDown);
+    setTimeout(() => document.querySelectorAll('[data-sticker]').forEach((el) => { const t = getComputedStyle(el).translate; if (!t || t === 'none') return; const p = t.split(' '); el.dataset.x = parseFloat(p[0]) || 0; el.dataset.y = parseFloat(p[1] || '0') || 0; }), 300);
   }
   componentWillUnmount() { document.removeEventListener('pointerdown', this.onDown); }
   getLang() { try { return localStorage.getItem('gecanor-lang') || 'EN'; } catch (e) { return 'EN'; } }

@@ -33,7 +33,7 @@
   input:focus, select:focus, textarea:focus { outline: none; border-color: #0B0B0B !important; }
   ::selection { background: #0B0B0B; color: #FFFFFF; }
   @keyframes grSpin { 0% { transform: perspective(620px) rotateY(-38deg) rotateX(7deg); } 50% { transform: perspective(620px) rotateY(38deg) rotateX(-7deg); } 100% { transform: perspective(620px) rotateY(-38deg) rotateX(7deg); } }
-  @media (max-width: 760px) { [data-sticker] { scale: 0.72; } [data-gs48] { translate: 71px -67px; } }
+  @media (max-width: 760px) { [data-sticker] { scale: 0.72; } [data-gs48] { translate: 93px -48px; } [data-gsconf] { translate: -108px 83px; } }
   @media (max-width: 760px) { header { gap: 8px !important; } header nav { gap: 10px 9px !important; font-size: 11px !important; letter-spacing: 0.02em !important; } html[lang="en"] header nav { gap: 10px 12px !important; font-size: 12px !important; letter-spacing: 0.06em !important; } html[lang="ca"] header nav { gap: 10px 12px !important; letter-spacing: 0.04em !important; } header nav > span { flex-basis: 100%; justify-content: flex-end; } header nav > a:last-of-type { margin-top: 5px; } header > a[aria-label="Gecanor home"] { flex: 0 0 74px !important; width: 74px !important; height: 64px !important; margin-left: -12px !important; } }
 </style>
 <script src="../i18n.js"></script>
@@ -68,7 +68,7 @@
         <span style="padding:7px 10px;border:1px solid #BEBCB5">3 · Scope &amp; quote</span>
       </div>
     </div>
-    <div data-draggable="1" data-sticker="1" style="position:absolute;right:9%;top:150px;padding:12px 16px;border:2px solid #0B0B0B;transform:rotate(-9deg);cursor:grab;touch-action:none;user-select:none;font-weight:850;font-stretch:62%;text-transform:uppercase;font-size:30px;line-height:0.9;letter-spacing:0.02em">Confidential</div>
+    <div data-draggable="1" data-sticker="1" data-gsconf="1" style="position:absolute;right:9%;top:150px;padding:12px 16px;border:2px solid #0B0B0B;transform:rotate(-9deg);cursor:grab;touch-action:none;user-select:none;font-weight:850;font-stretch:62%;text-transform:uppercase;font-size:30px;line-height:0.9;letter-spacing:0.02em">Confidential</div>
     <div data-draggable="1" data-sticker="1" data-gs48="1" style="position:absolute;right:24%;top:260px;width:100px;height:100px;border-radius:50%;background:#0B0B0B;color:#FFFFFF;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(8deg);cursor:grab;touch-action:none;user-select:none;font-weight:850;font-stretch:62%;text-transform:uppercase;font-size:30px;line-height:0.85">48h<span style="display:block;max-width:78px;margin-top:5px;text-align:center;line-height:1.25;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:8px;font-weight:400;letter-spacing:0.08em">Reply time</span></div>
   </section>
 
@@ -198,6 +198,7 @@ class Component extends DCLogic {
       window.addEventListener('pointerup', up);
     };
     document.addEventListener('pointerdown', this.onDown);
+    setTimeout(() => document.querySelectorAll('[data-sticker]').forEach((el) => { const t = getComputedStyle(el).translate; if (!t || t === 'none') return; const p = t.split(' '); el.dataset.x = parseFloat(p[0]) || 0; el.dataset.y = parseFloat(p[1] || '0') || 0; }), 300);
   }
   componentWillUnmount() { document.removeEventListener('pointerdown', this.onDown); }
 
