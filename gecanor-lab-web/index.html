@@ -60,6 +60,7 @@
     [data-hero-video] { position: relative !important; right: auto !important; top: auto !important; width: 100% !important; margin: 28px 0 8px !important; }
   }
   @media (max-width: 760px) { header { gap: 8px !important; } header nav { gap: 10px 9px !important; font-size: 11px !important; letter-spacing: 0.02em !important; } html[lang="en"] header nav { gap: 10px 12px !important; font-size: 12px !important; letter-spacing: 0.06em !important; } html[lang="ca"] header nav { gap: 10px 12px !important; letter-spacing: 0.04em !important; } header nav > span { flex-basis: 100%; justify-content: flex-end; } header nav > a:last-of-type { margin-top: 5px; } header > a[aria-label="Gecanor home"] { flex: 0 0 74px !important; width: 74px !important; height: 64px !important; margin-left: -12px !important; } }
+  @media (min-width: 761px) { [data-svc-note] { white-space: nowrap; } }
 </style>
 <script src="./i18n.js"></script>
 <script src="./lab-i18n.js"></script>
@@ -187,10 +188,10 @@
   <section id="services" style="background:#0B0B0B;color:#FFFFFF;padding:88px 24px">
     <div style="display:flex;justify-content:space-between;gap:16px;margin-bottom:28px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.06em;color:#8F8E89;text-transform:uppercase"><span>What we do</span><a href="/services" style="color:#FFFFFF">More information ↗</a></div>
     <sc-for list="{{ services }}" as="s" hint-placeholder-count="7">
-      <a href="/services" data-svc-row="1" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;padding:8px 0;border-top:1px solid #2A2A28;color:#FFFFFF;transition:padding 300ms ease" style-hover="color:#8F8E89;padding-left:16px">
+      <a href="{{ s.href }}" data-svc-row="1" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;padding:8px 0;border-top:1px solid #2A2A28;color:#FFFFFF;transition:padding 300ms ease" style-hover="color:#8F8E89;padding-left:16px">
         <span style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;min-width:30px;color:#8F8E89">{{ s.n }}</span>
         <span style="flex:1 1 auto;font-size:calc(clamp(40px,7.2vw,124px) * var(--d-scale, 1));line-height:calc(0.92 + var(--d-lh, 0));font-family:var(--d-font, Archivo), Helvetica, sans-serif;font-weight:var(--d-weight, 850);font-stretch:var(--d-stretch, 62%);text-transform:var(--d-case, uppercase);letter-spacing:var(--d-ls, -0.015em)">{{ s.title }}</span>
-        <span style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.04em;color:#8F8E89;text-transform:uppercase">{{ s.note }}</span>
+        <span data-svc-note="1" style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.04em;color:#8F8E89;text-transform:uppercase">{{ s.note }}</span>
       </a>
     </sc-for>
   </section>
@@ -335,6 +336,10 @@ class Component extends DCLogic {
   z = 600;
 
   componentDidMount() {
+    const goHash = (h, smooth) => { const el = h && h.length > 1 && document.getElementById(h.slice(1)); if (!el) return false; window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: smooth ? 'smooth' : 'auto' }); return true; };
+    if (location.hash && location.hash !== '#top') [80, 400, 1000, 1800].forEach((d) => setTimeout(() => goHash(location.hash, false), d));
+    this.onHashClick = (e) => { const a = e.target.closest && e.target.closest('a[href^="#"], a[href^="/#"]'); if (!a) return; const h = a.getAttribute('href').replace(/^\//, ''); if (h === '#top') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; } if (goHash(h, true)) { e.preventDefault(); history.replaceState(null, '', h); } };
+    document.addEventListener('click', this.onHashClick);
     this.lang = this.getLang();
     this.i18nTimers = [0, 150, 500, 1200, 2500].map((d) => setTimeout(() => this.runI18n(), d));
     this.applyFont();
@@ -478,7 +483,7 @@ class Component extends DCLogic {
         n: String(i + 1).padStart(3, '0'),
         target: p.href.startsWith('http') ? '_blank' : '_self'
       })),
-      services: SERVICES.map(([title, note], i) => ({ title, note, n: String(i + 1).padStart(2, '0') })),
+      services: SERVICES.map(([title, note], i) => ({ title, note, n: String(i + 1).padStart(2, '0'), href: '/services' + (i === 0 ? '' : '#s0' + i) })),
       brands: BRANDS
     };
   }
