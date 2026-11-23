@@ -107,15 +107,15 @@
       <a href="mailto:social@gecanor.com" style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;border-bottom:1px solid #0B0B0B;padding-bottom:2px">social@gecanor.com</a>
     </div>
 
-    <div data-bx="156" data-by="79" data-esx="288" data-esy="78" data-draggable="1" data-mx="-215" data-my="-272" data-mesx="-219" data-mesy="-293" data-mcax="-219" data-mcay="-273" data-sticker="1" data-msticker="a" style="position:absolute;left:44%;top:20%;z-index:6;width:136px;height:136px;border-radius:50%;background:#0B0B0B;color:#FFFFFF;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:rotate(-12deg);cursor:grab;touch-action:none;user-select:none;font-weight:800;font-stretch:62%;text-transform:uppercase;font-size:21px;line-height:0.9">
+    <div data-bx="156" data-by="79" data-esx="288" data-esy="78" data-draggable="1" data-mx="-215" data-my="-272" data-mesx="-241" data-mesy="-313" data-menx="-245" data-meny="-298" data-mcax="-219" data-mcay="-273" data-sticker="1" data-msticker="a" style="position:absolute;left:44%;top:20%;z-index:6;width:136px;height:136px;border-radius:50%;background:#0B0B0B;color:#FFFFFF;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:rotate(-12deg);cursor:grab;touch-action:none;user-select:none;font-weight:800;font-stretch:62%;text-transform:uppercase;font-size:21px;line-height:0.9">
       <span style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;font-weight:400;letter-spacing:0.14em;margin-bottom:6px">Est. BCN</span>Formulated<br>in<br>Barcelona
     </div>
-    <div data-bx="93" data-by="16" data-esx="87" data-esy="-26" data-draggable="1" data-mx="60" data-my="-32" data-mesx="146" data-mesy="-65" data-mcax="150" data-mcay="-38" data-sticker="1" data-msticker="b" style="position:absolute;left:58%;top:57%;z-index:6;width:210px;background:#FFFFFF;border:1px solid #0B0B0B;padding:10px 12px 12px;transform:rotate(4deg);cursor:grab;touch-action:none;user-select:none;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase">
+    <div data-bx="93" data-by="16" data-esx="87" data-esy="-26" data-draggable="1" data-mx="60" data-my="-32" data-mesx="148" data-mesy="-47" data-menx="148" data-meny="-21" data-mcax="150" data-mcay="-38" data-sticker="1" data-msticker="b" style="position:absolute;left:58%;top:57%;z-index:6;width:210px;background:#FFFFFF;border:1px solid #0B0B0B;padding:10px 12px 12px;transform:rotate(4deg);cursor:grab;touch-action:none;user-select:none;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase">
       <div style="display:flex;justify-content:space-between"><span>Lot Nº 2026/11</span><span>Exp. never</span></div>
       <div style="height:30px;margin:8px 0 6px;background:repeating-linear-gradient(90deg,#0B0B0B 0 2px,transparent 2px 4px,#0B0B0B 4px 5px,transparent 5px 8px,#0B0B0B 8px 11px,transparent 11px 12px,#0B0B0B 12px 13px,transparent 13px 16px)"></div>
       <div>8 436 0 2026 001 3</div>
     </div>
-        <div data-bx="254" data-by="98" data-esx="172" data-esy="78" data-draggable="1" data-mx="-7" data-my="-70" data-mesx="2" data-mesy="-89" data-mcax="4" data-mcay="-66" data-sticker="1" data-msticker="c" style="position:absolute;left:30%;top:42%;z-index:6;padding:8px 12px;background:#0B0B0B;color:#FFFFFF;transform:rotate(7deg);cursor:grab;touch-action:none;user-select:none;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase">MOQ 500 units</div>
+        <div data-bx="254" data-by="98" data-esx="172" data-esy="78" data-draggable="1" data-mx="-7" data-my="-70" data-mesx="4" data-mesy="-106" data-menx="2" data-meny="-91" data-mcax="4" data-mcay="-66" data-sticker="1" data-msticker="c" style="position:absolute;left:30%;top:42%;z-index:6;padding:8px 12px;background:#0B0B0B;color:#FFFFFF;transform:rotate(7deg);cursor:grab;touch-action:none;user-select:none;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase">MOQ 500 units</div>
   </section>
 
   <div style="background:#0B0B0B;color:#FFFFFF;overflow:hidden;white-space:nowrap;padding:13px 0">
@@ -433,7 +433,7 @@ class Component extends DCLogic {
     if (!els.length) return;
     this.posLang = key;
     els.forEach((el) => {
-      if (mob) { const p = lang === 'CAT' && el.dataset.mcax !== undefined ? 'mca' : ((lang === 'ES' || lang === 'CAT') && el.dataset.mesx !== undefined ? 'mes' : 'm'); const x = +(el.dataset[p + 'x'] || 0), y = +(el.dataset[p + 'y'] || 0); el.dataset.x = x; el.dataset.y = y; el.style.translate = x + 'px ' + y + 'px'; return; }
+      if (mob) { const p = el.closest('h1') ? (lang === 'CAT' && el.dataset.mcax !== undefined ? 'mca' : (lang === 'ES' && el.dataset.mesx !== undefined ? 'mes' : 'm')) : (lang !== 'ES' && el.dataset.menx !== undefined ? 'men' : (el.dataset.mesx !== undefined ? 'mes' : 'm')); const x = +(el.dataset[p + 'x'] || 0), y = +(el.dataset[p + 'y'] || 0); el.dataset.x = x; el.dataset.y = y; el.style.translate = x + 'px ' + y + 'px'; return; }
       if (el.dataset.esx === undefined) return;
       const k = (lang === 'ES' || lang === 'CAT') && el.dataset.esx !== undefined ? 'es' : 'b';
       const x = +el.dataset[k + 'x'], y = +el.dataset[k + 'y'];
