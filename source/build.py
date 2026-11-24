@@ -13,7 +13,8 @@ gecanor-lab-web/:
     datos estructurados (JSON-LD)
   - páginas legales (/legal, /cookies), sitemap.xml, robots.txt y llms.txt
 """
-import html, json, os, re, sys, threading, http.server, functools
+import html, json, os, re, sys, shutil, threading, http.server, functools, datetime
+import markdown as md
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -27,6 +28,22 @@ OUT = REPO / 'gecanor-lab-web'
 VENDOR = Path(os.environ.get('GECANOR_VENDOR', '/home/claude/vendor'))
 OG_IMAGE = SITE + '/assets/og-gecanor.jpg'
 ALL_PAGES = {**APP_PAGES, **{k: v[0] for k, v in STATIC_PAGES.items()}}
+
+sys.path.insert(0, str(Path(__file__).parent / 'articles'))
+from articles import ARTICLES, AUTHOR
+
+ART_DIR = Path(__file__).parent / 'articles'
+TODAY = os.environ.get('BUILD_DATE') or datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=1))).date().isoformat()
+
+
+def published(lang):
+    """Artículos publicados en un idioma, del más reciente al más antiguo."""
+    out = [a for a in ARTICLES if a['date'] <= TODAY and lang in a and (ART_DIR / f"{a['slug']}.{lang}.md").exists()]
+    return sorted(out, key=lambda a: a['date'], reverse=True)
+
+
+def art_path(a):
+    return '/resources/' + a['slug']
 
 
 def url(lang, path):
@@ -45,12 +62,14 @@ def out_file(lang, path):
 
 
 # ------------------------------------------------------------------ head
-def head(page, lang, extra_ld=None):
-    title, desc = META[page][lang]
-    path = ALL_PAGES[page]
+def head(page, lang, extra_ld=None, meta=None, path=None, langs=None, og_type='website'):
+    title, desc = meta or META[page][lang]
+    path = ALL_PAGES[page] if path is None else path
+    langs = langs or LANGS
     canon = url(lang, path)
-    alts = ''.join(f'<link rel="alternate" hreflang="{l}" href="{url(l, path)}">\n' for l in LANGS)
-    alts += f'<link rel="alternate" hreflang="x-default" href="{url("en", path)}">\n'
+    alts = ''.join(f'<link rel="alternate" hreflang="{l}" href="{url(l, path)}">\n' for l in langs)
+    if len(langs) > 1:
+        alts += f'<link rel="alternate" hreflang="x-default" href="{url("en" if "en" in langs else langs[0], path)}">\n'
     org = {
         '@type': 'Organization', '@id': SITE + '/#org', 'name': COMPANY['brand'], 'legalName': COMPANY['legal'],
         'taxID': COMPANY['nif'], 'url': SITE + '/', 'logo': SITE + '/assets/logo-gecanor.png', 'image': OG_IMAGE,
@@ -81,7 +100,7 @@ def head(page, lang, extra_ld=None):
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{canon}">
-{alts}<meta property="og:type" content="website">
+{alts}<meta property="og:type" content="{og_type}">
 <meta property="og:site_name" content="{COMPANY['brand']}">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
@@ -165,6 +184,11 @@ def transform(src, lang, page=''):
         anchor = '<section style="position:relative;padding:40px 24px 110px;'
         assert s.count(anchor) == 1, 'faq anchor'
         s = s.replace(anchor, faq_html(lang) + anchor)
+    if page == 'resources':
+        items = [{'cat': a['cat'], 'time': a['time'], 'title': a[lang]['title'], 'excerpt': a[lang]['excerpt'],
+                  'href': P + art_path(a)} for a in published(lang)]
+        assert 'const ARTICLES = [];' in s, 'resources anchor'
+        s = s.replace('const ARTICLES = [];', 'const ARTICLES = ' + json.dumps(items, ensure_ascii=False).replace('</', '<\\/') + ';')
     if page == 'services':
         old = 'Six disciplines under one roof. Pick the ones you need or hand us the whole path from brief to shelf.</p>'
         assert old in s, 'services intro'
@@ -264,10 +288,135 @@ def static_page(page, lang):
 '''
 
 
+
+# ------------------------------------------------------------------ articles
+MONTHS = {'es': ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+          'ca': ['gener', 'febrer', 'març', 'abril', 'maig', 'juny', 'juliol', 'agost', 'setembre', 'octubre', 'novembre', 'desembre'],
+          'en': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}
+CAT_LABEL = {'es': {'Formulation': 'Formulación', 'Regulatory': 'Regulación', 'Manufacturing': 'Fabricación', 'Packaging': 'Packaging', 'Brand & market': 'Marca y mercado'},
+             'ca': {'Formulation': 'Formulació', 'Regulatory': 'Regulació', 'Manufacturing': 'Fabricació', 'Packaging': 'Packaging', 'Brand & market': 'Marca i mercat'},
+             'en': {}}
+ART_TXT = {
+    'es': dict(home='Inicio', services='Servicios', resources='Recursos', start='Empezar', faq='Preguntas frecuentes', sources='Fuentes',
+               by='Por', related='Más artículos', cta='Cuéntanos tu proyecto', read='min de lectura', updated='Publicado el',
+               disclaimer='Artículo informativo; no sustituye el asesoramiento regulatorio de cada producto.'),
+    'ca': dict(home='Inici', services='Serveis', resources='Recursos', start='Comencem', faq='Preguntes freqüents', sources='Fonts',
+               by='Per', related='Més articles', cta='Explica\'ns el teu projecte', read='min de lectura', updated='Publicat el',
+               disclaimer='Article informatiu; no substitueix l\'assessorament regulatori de cada producte.'),
+    'en': dict(home='Home', services='Services', resources='Resources', start='Get started', faq='Frequently asked questions', sources='Sources',
+               by='By', related='More articles', cta='Tell us about your project', read='min read', updated='Published on',
+               disclaimer='For information only; it does not replace product-specific regulatory advice.'),
+}
+
+ART_CSS = STATIC_CSS + """
+nav.site{gap:18px}nav.site a{opacity:1}
+.crumbs{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#6F6E69;margin:0 0 28px}
+.crumbs a{text-decoration:none}.crumbs a:hover{text-decoration:underline}
+.meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#6F6E69;margin:0 0 18px}
+.meta b{color:#0B0B0B;font-weight:500}
+article h1{text-transform:none;font-size:clamp(34px,5vw,58px);letter-spacing:-.03em;line-height:1.02;font-weight:600}
+.byline{font-size:14px;color:#3A3A38;border-top:1px solid #DAD9D4;border-bottom:1px solid #DAD9D4;padding:12px 0;margin:0 0 32px}
+article .body>p:first-child{font-size:19px;line-height:1.5}
+article h2{font-size:26px;letter-spacing:-.02em;margin:48px 0 10px;line-height:1.15}
+article h3{font-size:18px;margin:26px 0 6px}
+article table{margin:18px 0}article td,article th{padding:10px 12px 10px 0}
+article li{margin:4px 0}
+.faq{margin-top:56px;border-top:1px solid #0B0B0B;padding-top:8px}
+.cta{margin:56px 0 0;padding:28px;background:#0B0B0B;color:#fff;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.cta p{margin:0;max-width:52ch}.cta a{background:#fff;color:#0B0B0B;padding:14px 22px;text-decoration:none;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.src{font-size:14px}.src li{margin:2px 0}
+.disc{font-size:13px;color:#6F6E69;font-style:italic}
+.related a{display:block;padding:14px 0;border-top:1px solid #DAD9D4;text-decoration:none;font-weight:500}.related a:hover{text-decoration:underline}
+"""
+
+
+def fdate(d, lang):
+    y, m, dd = (int(x) for x in d.split('-'))
+    if lang == 'en':
+        return f'{dd} {MONTHS[lang][m - 1]} {y}'
+    return f'{dd} de {MONTHS[lang][m - 1]} de {y}'
+
+
+def article_page(a, lang):
+    t, T, e, P = a[lang], ART_TXT[lang], html.escape, PREFIX[lang]
+    path = art_path(a)
+    canon = url(lang, path)
+    langs = [l for l in LANGS if l in a and (ART_DIR / f"{a['slug']}.{l}.md").exists() and a['date'] <= TODAY]
+    body = md.markdown((ART_DIR / f"{a['slug']}.{lang}.md").read_text(encoding='utf-8'), extensions=['tables'])
+    body = body.replace('<a href="http', '<a rel="noopener" target="_blank" href="http')
+    cat = CAT_LABEL[lang].get(a['cat'], a['cat'])
+    ld = [
+        {'@type': 'BlogPosting', '@id': canon + '#article', 'headline': t['title'], 'description': t['description'],
+         'datePublished': a['date'], 'dateModified': a.get('modified', a['date']), 'inLanguage': lang,
+         'mainEntityOfPage': canon, 'image': OG_IMAGE, 'articleSection': cat, 'keywords': ', '.join(t['keywords']),
+         'author': {'@type': 'Person', 'name': AUTHOR['name'], 'jobTitle': AUTHOR['role'][lang], 'worksFor': {'@id': SITE + '/#org'}},
+         'publisher': {'@id': SITE + '/#org'}, 'isPartOf': {'@id': SITE + '/#website'},
+         'citation': [u for _, u in a['sources']]},
+        {'@type': 'FAQPage', '@id': canon + '#faq', 'inLanguage': lang,
+         'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': r}} for q, r in t['faq']]},
+        {'@type': 'BreadcrumbList', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': T['home'], 'item': url(lang, '')},
+            {'@type': 'ListItem', 'position': 2, 'name': T['resources'], 'item': url(lang, '/resources')},
+            {'@type': 'ListItem', 'position': 3, 'name': t['title'], 'item': canon}]},
+    ]
+    h = head('resources', lang, ld, meta=(t['seo_title'], t['description']), path=path, langs=langs, og_type='article')
+    h += f'<meta property="article:published_time" content="{a["date"]}">\n'
+    faq = ''.join(f'<h3>{e(q)}</h3><p>{e(r)}</p>' for q, r in t['faq'])
+    src = ''.join(f'<li><a rel="noopener" target="_blank" href="{e(u)}">{e(n)}</a></li>' for n, u in a['sources'])
+    others = [o for o in published(lang) if o['slug'] != a['slug']][:3]
+    related = ''.join(f'<a href="{P}{art_path(o)}">{e(o[lang]["title"])}</a>' for o in others)
+    related = f'<section class="related"><h2>{T["related"]}</h2>{related}</section>' if related else ''
+    legal, cookies = FOOTER_LINKS[lang]
+    home = local(lang, '')
+    return f"""<!DOCTYPE html>
+<html lang="{lang}">
+<head>
+{h}<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>{ART_CSS}</style>
+</head>
+<body>
+<header><a class="logo" href="{home}" aria-label="Gecanor Beauty Tech"></a>
+<nav class="site"><a href="{P}/services">{T['services']}</a><a href="{P}/resources">{T['resources']}</a><a href="{P}/get-started">{T['start']}</a></nav></header>
+<main>
+<article>
+<p class="crumbs"><a href="{home}">{T['home']}</a> / <a href="{P}/resources">{T['resources']}</a> / {e(cat)}</p>
+<div class="meta"><b>{e(cat)}</b><span>{a['time'].replace('min', '').strip()} {T['read']}</span><time datetime="{a['date']}">{fdate(a['date'], lang)}</time></div>
+<h1>{e(t['title'])}</h1>
+<p class="byline">{T['by']} <strong>{AUTHOR['name']}</strong>, {AUTHOR['role'][lang]} · {T['updated']} {fdate(a['date'], lang)}</p>
+<div class="body">{body}</div>
+<section class="faq"><h2>{T['faq']}</h2>{faq}</section>
+<div class="cta"><p>{e(t['cta'])}</p><a href="{P}/get-started">{T['cta']} ↗</a></div>
+<section><h2>{T['sources']}</h2><ul class="src">{src}</ul><p class="disc">{T['disclaimer']}</p></section>
+{related}
+</article>
+</main>
+<footer>© 2026 Gecanor Beauty Tech · <a href="{P}/legal">{legal}</a> · <a href="{P}/cookies">{cookies}</a></footer>
+</body>
+</html>
+"""
+
+
+def write_articles():
+    keep = set()
+    for lang in LANGS:
+        for a in published(lang):
+            f = out_file(lang, art_path(a)); f.parent.mkdir(parents=True, exist_ok=True)
+            f.write_text(article_page(a, lang), encoding='utf-8')
+            keep.add(f.parent)
+    # borra páginas de artículos que ya no deben estar publicadas
+    for lang in LANGS:
+        base = out_file(lang, '/resources').parent
+        for d in base.iterdir() if base.exists() else []:
+            if d.is_dir() and d not in keep:
+                shutil.rmtree(d)
+    return sum(len(published(l)) for l in LANGS)
+
+
 # ------------------------------------------------------------------ prerender
 CDN = {
-    'react@18.3.1/umd/react.production.min.js': VENDOR / 'react-18.3.1/umd/react.production.min.js',
-    'react-dom@18.3.1/umd/react-dom.production.min.js': VENDOR / 'react-dom-18.3.1/umd/react-dom.production.min.js',
+    'react@18.3.1/umd/react.production.min.js': OUT / 'vendor/react.production.min.js',
+    'react-dom@18.3.1/umd/react-dom.production.min.js': OUT / 'vendor/react-dom.production.min.js',
     '@babel/standalone@7.29.0/babel.min.js': VENDOR / 'babel/babel.min.js',
 }
 
@@ -339,6 +488,11 @@ def sitemap():
             alts += f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{url("en", path)}"/>'
             prio = '1.0' if page == 'home' else ('0.3' if page in STATIC_PAGES else '0.8')
             rows.append(f'  <url>\n    <loc>{url(lang, path)}</loc>{alts}\n    <priority>{prio}</priority>\n  </url>')
+    for lang in LANGS:
+        for a in published(lang):
+            ls = [l for l in LANGS if a in published(l)]
+            alts = ''.join(f'\n    <xhtml:link rel="alternate" hreflang="{l}" href="{url(l, art_path(a))}"/>' for l in ls) if len(ls) > 1 else ''
+            rows.append(f'  <url>\n    <loc>{url(lang, art_path(a))}</loc>{alts}\n    <lastmod>{a.get("modified", a["date"])}</lastmod>\n    <priority>0.7</priority>\n  </url>')
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
             + '\n'.join(rows) + '\n</urlset>\n')
@@ -388,7 +542,8 @@ Gecanor Beauty Tech (legal name {COMPANY['legal']}) works as a full-service, whi
 - [Services]({url("en", "/services")}) · [Servicios]({url("es", "/services")}) · [Serveis]({url("ca", "/services")})
 - [Resources / articles]({url("en", "/resources")}) · [Recursos]({url("es", "/resources")})
 - [Get started / contact]({url("en", "/get-started")}) · [Empezar]({url("es", "/get-started")})
-'''
+''' + ('\n## Articles\n' + '\n'.join(f'- [{a[l]["title"]}]({url(l, art_path(a))}) ({l}): {a[l]["description"]}'
+                                         for l in LANGS for a in published(l)) + '\n' if any(published(l) for l in LANGS) else '')
 
 
 # ------------------------------------------------------------------ main
@@ -407,10 +562,11 @@ def main():
         for lang in LANGS:
             f = out_file(lang, STATIC_PAGES[page][0]); f.parent.mkdir(parents=True, exist_ok=True)
             f.write_text(static_page(page, lang), encoding='utf-8')
+    n_art = write_articles()
     (OUT / 'sitemap.xml').write_text(sitemap(), encoding='utf-8')
     (OUT / 'robots.txt').write_text(ROBOTS, encoding='utf-8')
     (OUT / 'llms.txt').write_text(llms_txt(), encoding='utf-8')
-    print('OK', len(rendered), 'páginas pre-renderizadas +', len(STATIC_PAGES) * len(LANGS), 'legales')
+    print('OK', len(rendered), 'páginas pre-renderizadas +', len(STATIC_PAGES) * len(LANGS), 'legales +', n_art, 'artículos · fecha', TODAY)
 
 
 if __name__ == '__main__':
