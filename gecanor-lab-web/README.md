@@ -5,15 +5,34 @@ Web estática lista para Vercel. No necesita instalar nada ni compilar.
 ## Estructura
 
 ```
-gecanor-lab-web/
-  index.html              → /
-  services/index.html     → /services
-  get-started/index.html  → /get-started
-  support.js              motor de las páginas (no tocar)
-  i18n.js, lab-i18n.js    traducciones EN / ES / CAT
-  vercel.json             URLs limpias + caché de assets
-  assets/                 vídeos, logos, fotos
+source/                     (fuera de la web publicada)
+  pages/*.html              diseño original de cada página (EDITAR AQUÍ)
+  content.py                títulos, descripciones SEO, datos de empresa, textos legales
+  build.py                  genera la web multidioma
+
+gecanor-lab-web/            (lo que publica Vercel — GENERADO, no editar a mano)
+  index.html, services/, resources/, get-started/   → inglés
+  es/…, ca/…                                         → español y catalán
+  legal/, cookies/ (+ es/, ca/)                      → páginas legales
+  sitemap.xml, robots.txt, llms.txt
+  consent.js                Google Analytics + aviso de cookies
+  support.js                motor de las páginas (no tocar)
+  i18n.js, lab-i18n.js      traducciones EN / ES / CAT
+  assets/                   vídeos, logos, fotos, imagen para redes (og-gecanor.jpg)
 ```
+
+## Cómo editar
+
+Cada idioma tiene su propia URL (/, /es, /ca) y el contenido va ya escrito en el HTML
+para que Google y las IA lo lean. Por eso las páginas de `gecanor-lab-web/` se generan:
+
+1. Edita `source/pages/<página>.html` (diseño) o `source/content.py` (SEO, textos legales).
+   Las traducciones siguen en `gecanor-lab-web/i18n.js` y `lab-i18n.js`.
+2. Ejecuta `python3 source/build.py` (necesita Python con `playwright` y Chrome).
+3. Sube los cambios a GitHub; Vercel publica solo.
+
+Si cambias algo directamente en `gecanor-lab-web/index.html` u otra página generada,
+se perderá la próxima vez que se ejecute el build.
 
 ## Probar en local
 

@@ -1,0 +1,19 @@
+# Gecanor Beauty Tech
+
+> Barcelona-based full-service partner that develops cosmetic and food supplement brands: formulation, manufacturing with Spanish laboratories, EU regulatory compliance, packaging, logistics and brand strategy. Offices in Barcelona and Chengdu.
+
+Gecanor Beauty Tech (legal name Gecanor Studio, S.L.) works as a full-service, white-label development partner for brands that want to launch cosmetics, nutricosmetics or food supplements. Minimum order quantity starts at 500 units. Contact: social@gecanor.com.
+
+## Services
+- [Formula development & innovation](https://www.gecanor.com/services)
+- [Manufacturing & production](https://www.gecanor.com/services#s01)
+- [Regulatory & compliance (EU Regulation 1223/2009)](https://www.gecanor.com/services#s02)
+- [Packaging research & sourcing](https://www.gecanor.com/services#s03)
+- [Logistics management](https://www.gecanor.com/services#s04)
+- [Brand strategy & market positioning](https://www.gecanor.com/services#s05)
+
+## Pages
+- [Home (EN)](https://www.gecanor.com/) · [ES](https://www.gecanor.com/es) · [CA](https://www.gecanor.com/ca)
+- [Services](https://www.gecanor.com/services) · [Servicios](https://www.gecanor.com/es/services) · [Serveis](https://www.gecanor.com/ca/services)
+- [Resources / articles](https://www.gecanor.com/resources) · [Recursos](https://www.gecanor.com/es/resources)
+- [Get started / contact](https://www.gecanor.com/get-started) · [Empezar](https://www.gecanor.com/es/get-started)

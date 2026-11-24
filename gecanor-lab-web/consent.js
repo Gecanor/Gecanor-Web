@@ -1,6 +1,7 @@
 /* Google tag (GA4 · GTM-NX6LWQ6T) con Consent Mode v2 + aviso de cookies.
    Analytics no guarda cookies hasta que el visitante pulsa "Aceptar".
-   La elección se guarda en localStorage ("gecanor-consent": "granted" | "denied"). */
+   La elección se guarda en localStorage ("gecanor-consent": "granted" | "denied").
+   window.gecanorConsent('granted' | 'denied') permite cambiarla (página de cookies). */
 (function () {
   var TAG_ID = 'GTM-NX6LWQ6T';
   var KEY = 'gecanor-consent';
@@ -26,37 +27,66 @@
   s.src = 'https://www.googletagmanager.com/gtm.js?id=' + TAG_ID;
   document.head.appendChild(s);
 
-  if (saved === 'granted' || saved === 'denied') return;
-
   var TEXT = {
-    EN: ['We use analytics cookies to understand how visitors use this site. They are only set if you accept.', 'Accept', 'Reject'],
-    ES: ['Usamos cookies de analítica para entender cómo se usa esta web. Solo se activan si las aceptas.', 'Aceptar', 'Rechazar'],
-    CAT: ['Fem servir galetes d’analítica per entendre com s’utilitza aquest web. Només s’activen si les acceptes.', 'Acceptar', 'Rebutjar']
+    en: ['We use analytics cookies to understand how visitors use this site. They are only set if you accept.', 'Accept', 'Reject', 'Cookie policy', '/cookies'],
+    es: ['Usamos cookies de analítica para entender cómo se usa esta web. Solo se activan si las aceptas.', 'Aceptar', 'Rechazar', 'Política de cookies', '/es/cookies'],
+    ca: ['Fem servir galetes d’analítica per entendre com s’utilitza aquest web. Només s’activen si les acceptes.', 'Acceptar', 'Rebutjar', 'Política de galetes', '/ca/cookies']
   };
 
   function lang() {
-    var l = 'EN';
-    try { l = localStorage.getItem('gecanor-lang') || 'EN'; } catch (e) {}
-    return TEXT[l] ? l : 'EN';
+    var l = (document.documentElement.getAttribute('lang') || '').slice(0, 2).toLowerCase();
+    if (!TEXT[l]) {
+      var p = location.pathname;
+      l = /^\/es(\/|$)/.test(p) ? 'es' : (/^\/ca(\/|$)/.test(p) ? 'ca' : 'en');
+    }
+    return l;
   }
 
-  function choose(value, bar) {
-    try { localStorage.setItem(KEY, value); } catch (e) {}
-    if (value === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' });
+  function clearGaCookies() {
+    var host = location.hostname.replace(/^www\./, '');
+    document.cookie.split(';').forEach(function (c) {
+      var name = c.split('=')[0].trim();
+      if (name === '_ga' || name.indexOf('_ga_') === 0) {
+        ['', '; domain=' + host, '; domain=.' + host].forEach(function (d) {
+          document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + d;
+        });
+      }
+    });
+  }
+
+  function removeBar() {
+    var bar = document.getElementById('gecanor-cookie-bar');
     if (bar && bar.parentNode) bar.parentNode.removeChild(bar);
   }
 
+  function choose(value) {
+    try { localStorage.setItem(KEY, value); } catch (e) {}
+    gtag('consent', 'update', { analytics_storage: value === 'granted' ? 'granted' : 'denied' });
+    if (value !== 'granted') clearGaCookies();
+    removeBar();
+  }
+  window.gecanorConsent = choose;
+
+  if (saved === 'granted' || saved === 'denied') return;
+
   function show() {
+    if (document.getElementById('gecanor-cookie-bar')) return;
     var t = TEXT[lang()];
     var bar = document.createElement('div');
+    bar.id = 'gecanor-cookie-bar';
     bar.setAttribute('role', 'dialog');
     bar.setAttribute('aria-label', 'Cookies');
-    bar.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:560px;margin:0 auto;' +
+    bar.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:2147483646;max-width:560px;margin:0 auto;' +
       'background:#111;color:#fff;padding:16px 18px;border-radius:10px;font:13px/1.45 "IBM Plex Mono",ui-monospace,monospace;' +
       'display:flex;flex-wrap:wrap;gap:12px;align-items:center;box-shadow:0 8px 30px rgba(0,0,0,.25)';
     var p = document.createElement('p');
     p.style.cssText = 'margin:0;flex:1 1 280px';
-    p.textContent = t[0];
+    p.appendChild(document.createTextNode(t[0] + ' '));
+    var a = document.createElement('a');
+    a.href = t[4];
+    a.textContent = t[3];
+    a.style.cssText = 'color:#fff;text-decoration:underline';
+    p.appendChild(a);
     var btns = document.createElement('div');
     btns.style.cssText = 'display:flex;gap:8px';
     [[t[2], 'denied', 'transparent', '#fff'], [t[1], 'granted', '#fff', '#111']].forEach(function (b) {
@@ -64,7 +94,7 @@
       el.type = 'button';
       el.textContent = b[0];
       el.style.cssText = 'cursor:pointer;border:1px solid #fff;border-radius:999px;padding:7px 14px;font:inherit;background:' + b[2] + ';color:' + b[3];
-      el.onclick = function () { choose(b[1], bar); };
+      el.onclick = function () { choose(b[1]); };
       btns.appendChild(el);
     });
     bar.appendChild(p);
