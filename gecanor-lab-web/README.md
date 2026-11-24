@@ -84,3 +84,12 @@ Envía a **sonia@gecanor.com** con FormSubmit. La primera vez que alguien envíe
 - Google Fonts (Archivo, IBM Plex Mono) y Fontshare (Satoshi, gratuita uso comercial — revisa su licencia).
 - React y Babel desde unpkg.com.
 - FormSubmit para el formulario.
+
+## Artículos (Recursos)
+
+- Cada artículo se escribe en los 3 idiomas: `source/articles/<slug>.es.md`, `.ca.md` y `.en.md`.
+- Sus datos (fecha, categoría, títulos, descripción SEO, preguntas frecuentes) están en
+  `source/articles/articles.py` (español) y `source/articles/translations.py` (catalán e inglés).
+- Se publican solos cuando llega su fecha al ejecutar `python3 source/build.py`: página propia
+  en /resources/<slug>, /es/resources/<slug> y /ca/resources/<slug>, listado de Recursos y sitemap.
+- Las portadas tipográficas (una por idioma) las genera `source/covers.py`; el build crea las que falten.

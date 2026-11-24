@@ -17,8 +17,17 @@ from articles import ARTICLES
 
 OUT = HERE.parent / 'gecanor-lab-web' / 'assets' / 'articles'
 LOGO = (HERE.parent / 'gecanor-lab-web' / 'assets' / 'gr.svg').read_text(encoding='utf-8')
-CAT = {'Formulation': 'Formulación', 'Regulatory': 'Regulación', 'Manufacturing': 'Fabricación',
-       'Packaging': 'Packaging', 'Brand & market': 'Marca y mercado'}
+CAT = {'es': {'Formulation': 'Formulación', 'Regulatory': 'Regulación', 'Manufacturing': 'Fabricación', 'Packaging': 'Packaging', 'Brand & market': 'Marca y mercado'},
+       'ca': {'Formulation': 'Formulació', 'Regulatory': 'Regulació', 'Manufacturing': 'Fabricació', 'Packaging': 'Packaging', 'Brand & market': 'Marca i mercat'},
+       'en': {}}
+TXT = {'es': ('Recursos', 'de lectura', 'gecanor.com/es/resources', 'Lab<br>notas'),
+       'ca': ('Recursos', 'de lectura', 'gecanor.com/ca/resources', 'Lab<br>notes'),
+       'en': ('Resources', 'read', 'gecanor.com/resources', 'Lab<br>notes')}
+
+
+def cover_name(slug, lang, kind):
+    """Nombre del archivo de portada (la versión en español no lleva sufijo de idioma)."""
+    return f"{slug}-{kind}.jpg" if lang == 'es' else f"{slug}-{lang}-{kind}.jpg"
 
 
 def font(name):
@@ -45,18 +54,19 @@ h1{{flex:1;display:flex;align-items:center;font-weight:800;font-stretch:62%;text
 """
 
 
-def page(a, n, w, h):
-    t = a['es']
-    cat = CAT.get(a['cat'], a['cat'])
+def page(a, n, w, h, lang='es'):
+    t = a[lang]
+    cat = CAT[lang].get(a['cat'], a['cat'])
+    R, READ, URL, BADGE = TXT[lang]
     badge_pos = 'right:70px;top:110px' if h < 700 else 'right:70px;top:120px'
     tag_pos = 'right:56px;bottom:110px' if h < 700 else 'right:60px;bottom:130px'
     return f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>:root{{--w:{w}px;--h:{h}px;--tw:{'76%' if h < 700 else '84%'}}}{CSS}</style></head><body>
 <div class="frame">
-  <div class="row"><span>Gecanor Beauty Tech</span><span>Recursos · Nº {n:02d}</span><span>{cat}</span><span>{a['time']} de lectura</span></div>
+  <div class="row"><span>Gecanor Beauty Tech</span><span>{R} · Nº {n:02d}</span><span>{cat}</span><span>{a['time']} {READ}</span></div>
   <h1 id="t">{html.escape(t['title'])}</h1>
-  <div class="foot"><span>gecanor.com/es/resources</span>{LOGO}</div>
+  <div class="foot"><span>{URL}</span>{LOGO}</div>
 </div>
-<div class="badge" style="{badge_pos}"><b>Lab<br>notas</b><i>VOL. 01</i></div>
+<div class="badge" style="{badge_pos}"><b>{BADGE}</b><i>VOL. 01</i></div>
 <div class="tag" style="{tag_pos}">Ref. GCN-R-{n:02d}<hr>Barcelona — Chengdu</div>
 <script>
 const t=document.getElementById('t');let s={190 if h > 700 else 132};t.style.fontSize=s+'px';
@@ -73,18 +83,21 @@ def main():
     order = sorted(ARTICLES, key=lambda a: a['date'])
     jobs = []
     for n, a in enumerate(order, 1):
-        for kind, (w, h) in {'wide': (1200, 630), 'card': (1200, 900)}.items():
-            f = OUT / f"{a['slug']}-{kind}.jpg"
-            if force or not f.exists():
-                jobs.append((a, n, w, h, f))
+        for lang in ('es', 'ca', 'en'):
+            if lang not in a:
+                continue
+            for kind, (w, h) in {'wide': (1200, 630), 'card': (1200, 900)}.items():
+                f = OUT / cover_name(a['slug'], lang, kind)
+                if force or not f.exists():
+                    jobs.append((a, n, w, h, f, lang))
     if not jobs:
         print('Portadas al día'); return
     with sync_playwright() as p:
         exe = os.environ.get('CHROME', '/usr/bin/google-chrome')
         b = p.chromium.launch(executable_path=exe if os.path.exists(exe) else None, args=['--no-sandbox'])
-        for a, n, w, h, f in jobs:
+        for a, n, w, h, f, lang in jobs:
             pg = b.new_page(viewport={'width': w, 'height': h})
-            pg.set_content(page(a, n, w, h)); pg.wait_for_timeout(300)
+            pg.set_content(page(a, n, w, h, lang)); pg.wait_for_timeout(300)
             pg.screenshot(path=str(f), type='jpeg', quality=88)
             pg.close(); print('·', f.name)
         b.close()

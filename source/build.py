@@ -31,6 +31,7 @@ ALL_PAGES = {**APP_PAGES, **{k: v[0] for k, v in STATIC_PAGES.items()}}
 
 sys.path.insert(0, str(Path(__file__).parent / 'articles'))
 from articles import ARTICLES, AUTHOR
+from covers import cover_name
 
 ART_DIR = Path(__file__).parent / 'articles'
 TODAY = os.environ.get('BUILD_DATE') or datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=1))).date().isoformat()
@@ -193,7 +194,7 @@ def transform(src, lang, page=''):
             al = lang if a in published(lang) else 'es'
             items.append({'cat': a['cat'], 'time': a['time'], 'title': a[al]['title'],
                           'excerpt': ('' if al == lang else note) + a[al]['excerpt'],
-                          'href': PREFIX[al] + art_path(a), 'image': f"/assets/articles/{a['slug']}-card.jpg"})
+                          'href': PREFIX[al] + art_path(a), 'image': '/assets/articles/' + cover_name(a['slug'], al, 'card')})
         assert 'const ARTICLES = [];' in s, 'resources anchor'
         s = s.replace('const ARTICLES = [];', 'const ARTICLES = ' + json.dumps(items, ensure_ascii=False).replace('</', '<\\/') + ';')
     if page == 'services':
@@ -353,7 +354,7 @@ def article_page(a, lang):
     body = md.markdown((ART_DIR / f"{a['slug']}.{lang}.md").read_text(encoding='utf-8'), extensions=['tables'])
     body = body.replace('<a href="http', '<a rel="noopener" target="_blank" href="http')
     cat = CAT_LABEL[lang].get(a['cat'], a['cat'])
-    wide, card = f"/assets/articles/{a['slug']}-wide.jpg", f"/assets/articles/{a['slug']}-card.jpg"
+    wide, card = '/assets/articles/' + cover_name(a['slug'], lang, 'wide'), '/assets/articles/' + cover_name(a['slug'], lang, 'card')
     ld = [
         {'@type': 'BlogPosting', '@id': canon + '#article', 'headline': t['title'], 'description': t['description'],
          'datePublished': a['date'], 'dateModified': a.get('modified', a['date']), 'inLanguage': lang,

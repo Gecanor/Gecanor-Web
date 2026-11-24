@@ -10,6 +10,8 @@ Formulation, Regulatory, Manufacturing, Packaging, Brand & market.
 
 AUTHOR = {'name': 'David Castillo', 'role': {'es': 'CEO de Gecanor Beauty Tech', 'ca': 'CEO de Gecanor Beauty Tech', 'en': 'CEO, Gecanor Beauty Tech'}}
 
+from translations import TR  # textos en inglés y catalán
+
 ARTICLES = [
     {
         'slug': 'crear-marca-cosmetica-propia',
@@ -110,3 +112,6 @@ ARTICLES = [
         ],
     },
 ]
+
+for _a in ARTICLES:
+    _a.update(TR.get(_a['slug'], {}))
