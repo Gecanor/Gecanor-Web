@@ -13,7 +13,7 @@ AUTHOR = {'name': 'David Castillo', 'role': {'es': 'CEO de Gecanor Beauty Tech',
 ARTICLES = [
     {
         'slug': 'crear-marca-cosmetica-propia',
-        'date': '2026-11-26',
+        'date': '2026-11-24',
         'cat': 'Brand & market',
         'time': '7 min',
         'es': {
