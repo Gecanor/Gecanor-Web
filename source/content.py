@@ -109,7 +109,8 @@ def legal_body(lang):
 <ul>
 <li>Razón social: <strong>{c['legal']}</strong> (marca comercial «{c['brand']}»)</li>
 <li>NIF: {c['nif']}</li>
-<li>Domicilio: {c['street']}, {c['zip']} {c['city']} (España)</li>
+<li>Domicilio social: {c['street']}, {c['zip']} {c['city']} (España)</li>
+<li>Oficinas: C/ Balmes 127, Principal 2ºA, 08008 Barcelona (España) · Wanke Jiazhouwan V-Pai, 501, 610036 Chengdu (China)</li>
 <li>Correo electrónico: <a href="mailto:{c['email']}">{c['email']}</a></li>
 </ul>
 <h2>2. Condiciones de uso</h2>
@@ -140,7 +141,8 @@ def legal_body(lang):
 <ul>
 <li>Raó social: <strong>{c['legal']}</strong> (marca comercial «{c['brand']}»)</li>
 <li>NIF: {c['nif']}</li>
-<li>Domicili: {c['street']}, {c['zip']} {c['city']} (Espanya)</li>
+<li>Domicili social: {c['street']}, {c['zip']} {c['city']} (Espanya)</li>
+<li>Oficines: C/ Balmes 127, Principal 2ºA, 08008 Barcelona (Espanya) · Wanke Jiazhouwan V-Pai, 501, 610036 Chengdu (Xina)</li>
 <li>Correu electrònic: <a href="mailto:{c['email']}">{c['email']}</a></li>
 </ul>
 <h2>2. Condicions d'ús</h2>
@@ -171,6 +173,7 @@ def legal_body(lang):
 <li>Company: <strong>{c['legal']}</strong> (trading as “{c['brand']}”)</li>
 <li>Tax ID (NIF): {c['nif']}</li>
 <li>Registered address: {c['street']}, {c['zip']} {c['city']} (Spain)</li>
+<li>Offices: C/ Balmes 127, Principal 2ºA, 08008 Barcelona (Spain) · Wanke Jiazhouwan V-Pai, 501, 610036 Chengdu (China)</li>
 <li>Email: <a href="mailto:{c['email']}">{c['email']}</a></li>
 </ul>
 <h2>2. Terms of use</h2>
@@ -262,4 +265,76 @@ document.querySelectorAll('[data-consent]').forEach(function(b){{b.onclick=funct
 STATIC_PAGES = {
     'legal': ('/legal', legal_body),
     'cookies': ('/cookies', cookies_body),
+}
+
+# ---------------------------------------------------------------- mejoras SEO/GEO en el contenido
+OFFICE = {'street': 'C/ Balmes 127, Principal 2ºA', 'zip': '08008', 'city': 'Barcelona',
+          'cn': 'Wanke Jiazhouwan V-Pai, 501, 610036 Chengdu (China)'}
+
+# H1 visible de la home (sustituye a la frase de introducción)
+HOME_H1 = {
+    'en': 'We develop cosmetic and food supplement brands, <br />from formula to launch.',
+    'es': 'Desarrollamos marcas de cosmética y complementos alimenticios, <br />de la fórmula al lanzamiento.',
+    'ca': 'Desenvolupem marques de cosmètica i complements alimentaris, <br />de la fórmula al llançament.',
+}
+
+SERVICES_INTRO = {
+    'en': 'Six disciplines under one roof to create your cosmetic or food supplement brand: formulation, manufacturing, EU regulatory, packaging, logistics and brand strategy. Pick the ones you need or hand us the whole path from brief to shelf.',
+    'es': 'Seis disciplinas bajo un mismo techo para crear tu marca de cosmética o complementos alimenticios: formulación, fabricación, regulación, packaging, logística y estrategia de marca. Elige las que necesites o déjanos todo el camino, del briefing al lineal.',
+    'ca': 'Sis disciplines sota un mateix sostre per crear la teva marca de cosmètica o complements alimentaris: formulació, fabricació, regulació, packaging, logística i estratègia de marca. Tria les que necessitis o deixa\'ns tot el camí, del briefing al lineal.',
+}
+
+FAQ_TITLE = {'en': 'Frequently asked questions', 'es': 'Preguntas frecuentes', 'ca': 'Preguntes freqüents'}
+FAQ_LABEL = {'en': 'FAQ', 'es': 'FAQ', 'ca': 'FAQ'}
+
+# Solo datos que ya figuran en la web
+FAQ = {
+    'es': [
+        ('¿Qué hace Gecanor Beauty Tech?',
+         'Desarrollamos marcas de cosmética, nutricosmética y complementos alimenticios para terceros, de principio a fin: formulación a medida, fabricación con laboratorios españoles, cumplimiento normativo, packaging, logística y estrategia de marca. Puedes contratar el servicio integral o solo las disciplinas que necesites.'),
+        ('¿Cuál es el pedido mínimo para fabricar mi propia marca?',
+         'El pedido mínimo parte de 500 unidades por referencia, lo que permite lanzar una marca propia sin grandes volúmenes iniciales y escalar la producción a medida que crece.'),
+        ('¿Dónde se fabrican los productos?',
+         'Trabajamos con laboratorios cosméticos españoles y gestionamos todo el proceso: aprovisionamiento de materias primas, producción, control de calidad, liberación de lote y documentación.'),
+        ('¿Os encargáis de la normativa europea de cosméticos?',
+         'Sí. Nos ocupamos de que el producto cumpla el Reglamento (CE) n.º 1223/2009: estudios de estabilidad y compatibilidad con el envase, ensayos microbiológicos, challenge test, patch test, expediente de información del producto (PIF), evaluación de seguridad firmada por un profesional cualificado y notificación en el portal CPNP.'),
+        ('¿La fórmula que desarrolláis es de mi propiedad?',
+         'Sí. Cuando desarrollamos una fórmula a medida, entre los entregables se incluyen la fórmula final, las muestras de laboratorio, el dosier de ingredientes y la propiedad intelectual a nombre de tu marca.'),
+        ('¿Cómo empiezo y cuánto tardáis en responder?',
+         'Rellena el formulario de «Empezar» con los datos de tu proyecto. Respondemos con un primer estudio de viabilidad en 48 horas y, después, te enviamos el alcance y el presupuesto.'),
+        ('¿Dónde estáis?',
+         'Tenemos oficina en Barcelona (C/ Balmes 127) y en Chengdu (China), lo que nos permite acompañar a marcas europeas y asiáticas.'),
+    ],
+    'ca': [
+        ('Què fa Gecanor Beauty Tech?',
+         'Desenvolupem marques de cosmètica, nutricosmètica i complements alimentaris per a tercers, de principi a fi: formulació a mida, fabricació amb laboratoris espanyols, compliment normatiu, packaging, logística i estratègia de marca. Pots contractar el servei integral o només les disciplines que necessitis.'),
+        ('Quina és la comanda mínima per fabricar la meva pròpia marca?',
+         'La comanda mínima parteix de 500 unitats per referència, cosa que permet llançar una marca pròpia sense grans volums inicials i escalar la producció a mesura que creix.'),
+        ('On es fabriquen els productes?',
+         'Treballem amb laboratoris cosmètics espanyols i gestionem tot el procés: aprovisionament de matèries primeres, producció, control de qualitat, alliberament de lot i documentació.'),
+        ('Us encarregueu de la normativa europea de cosmètics?',
+         'Sí. Ens ocupem que el producte compleixi el Reglament (CE) núm. 1223/2009: estudis d\'estabilitat i compatibilitat amb l\'envàs, assajos microbiològics, challenge test, patch test, expedient d\'informació del producte (PIF), avaluació de seguretat signada per un professional qualificat i notificació al portal CPNP.'),
+        ('La fórmula que desenvolupeu és de la meva propietat?',
+         'Sí. Quan desenvolupem una fórmula a mida, entre els lliurables s\'inclouen la fórmula final, les mostres de laboratori, el dossier d\'ingredients i la propietat intel·lectual a nom de la teva marca.'),
+        ('Com començo i quant trigueu a respondre?',
+         'Omple el formulari de «Comencem» amb les dades del teu projecte. Responem amb un primer estudi de viabilitat en 48 hores i, després, t\'enviem l\'abast i el pressupost.'),
+        ('On sou?',
+         'Tenim oficina a Barcelona (C/ Balmes 127) i a Chengdu (Xina), cosa que ens permet acompanyar marques europees i asiàtiques.'),
+    ],
+    'en': [
+        ('What does Gecanor Beauty Tech do?',
+         'We develop cosmetic, nutricosmetic and food supplement brands for third parties, end to end: custom formulation, manufacturing with Spanish laboratories, regulatory compliance, packaging, logistics and brand strategy. You can hire the full service or only the disciplines you need.'),
+        ('What is the minimum order to manufacture my own brand?',
+         'The minimum order starts at 500 units per product reference, so you can launch your own brand without large initial volumes and scale production as it grows.'),
+        ('Where are the products manufactured?',
+         'We work with Spanish cosmetic laboratories and manage the whole process: raw material sourcing, production, quality control, batch release and documentation.'),
+        ('Do you handle EU cosmetics regulation?',
+         'Yes. We make sure the product complies with Regulation (EC) No 1223/2009: stability and packaging compatibility studies, microbiological testing, challenge test, patch test, Product Information File (PIF), safety assessment signed by a qualified professional and CPNP notification.'),
+        ('Do I own the formula you develop?',
+         'Yes. When we develop a custom formula, the deliverables include the final formula, lab-scale samples, the ingredient dossier and the intellectual property in your brand’s name.'),
+        ('How do I start and how fast do you reply?',
+         'Fill in the “Get started” form with your project details. We reply with a first feasibility study within 48 hours, followed by the scope and budget.'),
+        ('Where are you based?',
+         'We have offices in Barcelona (C/ Balmes 127, Spain) and Chengdu (China), so we can support both European and Asian brands.'),
+    ],
 }

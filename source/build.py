@@ -18,7 +18,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from content import (SITE, LANGS, PREFIX, LANG_CODE, OG_LOCALE, COMPANY, APP_PAGES, META,
-                     ORG_DESC, SERVICES, FOOTER_LINKS, STATIC_PAGES, UPDATED, BACK)
+                     ORG_DESC, SERVICES, FOOTER_LINKS, STATIC_PAGES, UPDATED, BACK,
+                     OFFICE, HOME_H1, SERVICES_INTRO, FAQ, FAQ_TITLE, FAQ_LABEL)
 
 REPO = Path(__file__).resolve().parent.parent
 SRC = REPO / 'source' / 'pages'
@@ -54,8 +55,13 @@ def head(page, lang, extra_ld=None):
         '@type': 'Organization', '@id': SITE + '/#org', 'name': COMPANY['brand'], 'legalName': COMPANY['legal'],
         'taxID': COMPANY['nif'], 'url': SITE + '/', 'logo': SITE + '/assets/logo-gecanor.png', 'image': OG_IMAGE,
         'email': COMPANY['email'], 'description': ORG_DESC[lang],
-        'address': {'@type': 'PostalAddress', 'streetAddress': COMPANY['street'], 'addressLocality': COMPANY['city'],
-                    'postalCode': COMPANY['zip'], 'addressCountry': COMPANY['country']},
+        'address': {'@type': 'PostalAddress', 'streetAddress': OFFICE['street'], 'addressLocality': OFFICE['city'],
+                    'postalCode': OFFICE['zip'], 'addressCountry': 'ES'},
+        'location': [
+            {'@type': 'Place', 'name': 'Gecanor Barcelona', 'address': {'@type': 'PostalAddress', 'streetAddress': OFFICE['street'],
+             'addressLocality': 'Barcelona', 'postalCode': OFFICE['zip'], 'addressCountry': 'ES'}},
+            {'@type': 'Place', 'name': 'Gecanor Chengdu', 'address': {'@type': 'PostalAddress', 'streetAddress': 'Wanke Jiazhouwan V-Pai, 501',
+             'addressLocality': 'Chengdu', 'postalCode': '610036', 'addressCountry': 'CN'}}],
         'sameAs': [COMPANY['instagram'], COMPANY['linkedin']],
         'areaServed': ['ES', 'EU', 'CN'],
         'knowsAbout': ['Cosmetic formulation', 'Nutricosmetics', 'Food supplements', 'Private label cosmetics',
@@ -97,11 +103,35 @@ def service_ld(lang):
             for i, s in enumerate(SERVICES[lang])]
 
 
+def faq_ld(lang):
+    return [{'@type': 'FAQPage', '@id': url(lang, '') + '#faq', 'inLanguage': lang,
+             'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}}
+                            for q, a in FAQ[lang]]}]
+
+
+MONO = "font-family:'IBM Plex Mono',ui-monospace,monospace"
+
+
+def faq_html(lang):
+    e = html.escape
+    items = ''.join(
+        f'<div style="display:grid;grid-template-columns:48px minmax(0,1fr);gap:6px 16px;padding:22px 0;border-top:1px solid #DAD9D4">'
+        f'<span style="{MONO};font-size:12px;color:#6F6E69">{i + 1:02d}</span>'
+        f'<div><h3 style="margin:0 0 8px;font-size:clamp(18px,1.6vw,22px);line-height:1.25;font-weight:600">{e(q)}</h3>'
+        f'<p style="margin:0;max-width:72ch;font-size:16px;line-height:1.55;color:#3A3A38">{e(a)}</p></div></div>'
+        for i, (q, a) in enumerate(FAQ[lang]))
+    return (f'<section id="faq" style="padding:72px 24px 56px;border-top:1px solid #0B0B0B">'
+            f'<div style="display:flex;justify-content:space-between;gap:16px;margin-bottom:20px;{MONO};font-size:12px;color:#6F6E69;text-transform:uppercase">'
+            f'<span>{FAQ_LABEL[lang]}</span><span>{len(FAQ[lang]):02d}</span></div>'
+            f'<h2 style="margin:0 0 28px;font-size:clamp(40px,7vw,96px);line-height:0.9;letter-spacing:-0.03em;text-transform:uppercase;font-weight:800">{FAQ_TITLE[lang]}</h2>'
+            f'{items}</section>\n\n  ')
+
+
 # ------------------------------------------------------------------ app pages
 ASSET_RE = re.compile(r'(["\'(])\.\.?/(assets/|support\.js|i18n\.js|lab-i18n\.js)')
 
 
-def transform(src, lang):
+def transform(src, lang, page=''):
     P = PREFIX[lang]
     s = ASSET_RE.sub(r'\1/\2', src)
     # enlaces internos -> versión del idioma
@@ -122,6 +152,23 @@ def transform(src, lang):
     legal, cookies = FOOTER_LINKS[lang]
     s = s.replace('<span>© 2026 Gecanor Beauty Tech</span>',
                   f'<span>© 2026 Gecanor Beauty Tech · <a href="{P}/legal">{legal}</a> · <a href="{P}/cookies">{cookies}</a></span>')
+    if page == 'home':
+        # el titular de diseño pasa a ser decorativo; el H1 real describe lo que hacemos
+        a = s.count('<h1 data-hero-h1="1"')
+        s = s.replace('<h1 data-hero-h1="1"', '<div data-hero-h1="1" role="presentation"')
+        s = re.sub(r'(<div data-hero-h1="1" role="presentation"[\s\S]*?)</h1>', r'\1</div>', s, count=1)
+        s = s.replace("el.closest('h1')", "el.closest('[data-hero-h1]')")
+        old = '<p data-hero-p="1" style="margin:0;max-width:36ch;font-size:clamp(17px,1.5vw,21px);line-height:1.3;font-weight:500">We are fully dedicated to create within <br />the cosmetic and supplements space.</p>'
+        assert a == 1 and old in s, 'home hero patch failed'
+        s = s.replace(old, old.replace('<p data-hero-p="1"', '<h1 data-hero-p="1"').replace(
+            'We are fully dedicated to create within <br />the cosmetic and supplements space.</p>', HOME_H1[lang] + '</h1>'))
+        anchor = '<section style="position:relative;padding:40px 24px 110px;'
+        assert s.count(anchor) == 1, 'faq anchor'
+        s = s.replace(anchor, faq_html(lang) + anchor)
+    if page == 'services':
+        old = 'Six disciplines under one roof. Pick the ones you need or hand us the whole path from brief to shelf.</p>'
+        assert old in s, 'services intro'
+        s = s.replace(old, SERVICES_INTRO[lang] + '</p>')
     return s
 
 
@@ -151,13 +198,14 @@ LOADER = '''<script>
 
 
 def app_page(page, lang, ssr='', helmet=''):
-    src = transform((SRC / f'{page}.html').read_text(encoding='utf-8'), lang)
+    src = transform((SRC / f'{page}.html').read_text(encoding='utf-8'), lang, page)
     xdc, rest = split_source(src)
-    extra = service_ld(lang) if page == 'services' else None
+    extra = service_ld(lang) if page == 'services' else (faq_ld(lang) if page == 'home' else None)
     return f'''<!DOCTYPE html>
 <html lang="{lang}">
 <head>
-{head(page, lang, extra)}<script src="/support.js"></script>
+{head(page, lang, extra)}<script>window.__resources = {{"https://unpkg.com/react@18.3.1/umd/react.production.min.js": "/vendor/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "/vendor/react-dom.production.min.js"}};</script>
+<script src="/support.js"></script>
 {helmet}</head>
 <body>
 <div id="ssr">{ssr}</div>
@@ -268,6 +316,7 @@ def prerender(jobs):
             ssr, helmet = pg.evaluate('''() => {
               const root = document.getElementById('dc-root').cloneNode(true);
               root.querySelectorAll('script,.sc-logic-error').forEach(n => n.remove());
+              root.querySelectorAll('h1,h2,h3,h4').forEach(h => { if (!h.textContent.trim()) h.replaceWith(...h.childNodes); });
               root.querySelectorAll('video').forEach(v => { v.removeAttribute('autoplay'); v.removeAttribute('controls'); v.setAttribute('preload', 'none'); });
               const keep = [...document.head.children].filter(n =>
                 (n.tagName === 'STYLE') || (n.tagName === 'LINK' && /stylesheet|preconnect/.test(n.rel)));
