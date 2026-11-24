@@ -186,8 +186,14 @@ def transform(src, lang, page=''):
         assert s.count(anchor) == 1, 'faq anchor'
         s = s.replace(anchor, faq_html(lang) + anchor)
     if page == 'resources':
-        items = [{'cat': a['cat'], 'time': a['time'], 'title': a[lang]['title'], 'excerpt': a[lang]['excerpt'],
-                  'href': P + art_path(a), 'image': f"/assets/articles/{a['slug']}-card.jpg"} for a in published(lang)]
+        # artículos en este idioma; si aún no está traducido, se enlaza la versión en español
+        note = {'en': 'In Spanish · ', 'ca': 'En castellà · ', 'es': ''}[lang]
+        items = []
+        for a in sorted({x['slug']: x for l in LANGS for x in published(l)}.values(), key=lambda x: x['date'], reverse=True):
+            al = lang if a in published(lang) else 'es'
+            items.append({'cat': a['cat'], 'time': a['time'], 'title': a[al]['title'],
+                          'excerpt': ('' if al == lang else note) + a[al]['excerpt'],
+                          'href': PREFIX[al] + art_path(a), 'image': f"/assets/articles/{a['slug']}-card.jpg"})
         assert 'const ARTICLES = [];' in s, 'resources anchor'
         s = s.replace('const ARTICLES = [];', 'const ARTICLES = ' + json.dumps(items, ensure_ascii=False).replace('</', '<\\/') + ';')
     if page == 'services':
