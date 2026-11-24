@@ -208,7 +208,7 @@
 
     <sc-if value="{{ hasFeatured }}" hint-placeholder-val="{{ true }}">
       <a href="{{ featured.href }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:24px;padding:28px 0;border-bottom:1px solid #DAD9D4" style-hover="color:#0B0B0B">
-        <div style="aspect-ratio:4/3;background:repeating-linear-gradient(135deg,#ECEBE7 0 9px,#F4F3F0 9px 18px);border:1px solid #DAD9D4;display:flex;align-items:flex-end;justify-content:space-between;padding:14px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#6F6E69;text-transform:uppercase"><span>Article image</span><span>{{ featured.no }}</span></div>
+        <div role="img" aria-label="{{ featured.title }}" style="aspect-ratio:4/3;background:{{ featured.bg }};border:1px solid #DAD9D4;display:flex;align-items:flex-end;justify-content:space-between;padding:14px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#6F6E69;text-transform:uppercase"><span>{{ featured.label }}</span><span>{{ featured.nolabel }}</span></div>
         <div style="display:flex;flex-direction:column;gap:16px;justify-content:flex-end">
           <div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;color:#6F6E69;text-transform:uppercase"><span style="color:#0B0B0B">Featured</span><span>{{ featured.cat }}</span><span>{{ featured.time }}</span><sc-if value="{{ featured.sample }}" hint-placeholder-val="{{ true }}"><span style="padding:1px 6px;border:1px dashed #6F6E69">Sample</span></sc-if></div>
           <h2 style="margin:0;font-family:'Satoshi',Archivo,sans-serif;font-size:clamp(28px,3.4vw,52px);line-height:1.02;font-weight:500;letter-spacing:-0.03em;text-wrap:pretty">{{ featured.title }}</h2>
@@ -221,7 +221,7 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:36px 24px;margin-top:32px">
       <sc-for list="{{ rest }}" as="a" hint-placeholder-count="5">
         <a href="{{ a.href }}" style="display:flex;flex-direction:column;gap:12px" style-hover="color:#0B0B0B;opacity:0.72">
-          <div style="aspect-ratio:3/2;background:repeating-linear-gradient(135deg,#ECEBE7 0 9px,#F4F3F0 9px 18px);border:1px solid #DAD9D4;display:flex;align-items:flex-end;justify-content:space-between;padding:12px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:#6F6E69;text-transform:uppercase"><span>Article image</span><span>{{ a.no }}</span></div>
+          <div role="img" aria-label="{{ a.title }}" style="aspect-ratio:3/2;background:{{ a.bg }};border:1px solid #DAD9D4;display:flex;align-items:flex-end;justify-content:space-between;padding:12px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:#6F6E69;text-transform:uppercase"><span>{{ a.label }}</span><span>{{ a.nolabel }}</span></div>
           <div style="display:flex;flex-wrap:wrap;gap:6px 12px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:0.06em;color:#6F6E69;text-transform:uppercase"><span style="color:#0B0B0B">{{ a.cat }}</span><span>{{ a.time }}</span><sc-if value="{{ a.sample }}" hint-placeholder-val="{{ true }}"><span style="padding:1px 6px;border:1px dashed #6F6E69">Sample</span></sc-if></div>
           <h3 style="margin:0;font-family:'Satoshi',Archivo,sans-serif;font-size:22px;line-height:1.15;font-weight:500;letter-spacing:-0.02em;text-wrap:pretty">{{ a.title }}</h3>
           <p style="margin:0;font-size:15px;line-height:1.5;color:#3A3A38">{{ a.excerpt }}</p>
@@ -320,7 +320,8 @@ class Component extends DCLogic {
   renderVals() {
     const showSamples = this.props.showSamples ?? false;
     const all = (ARTICLES.length ? ARTICLES.map((a) => ({ ...a, sample: false })) : (showSamples ? SAMPLES.map((a) => ({ ...a, sample: true })) : []))
-      .map((a, i) => ({ href: '#top', ...a, no: String(i + 1).padStart(2, '0') }));
+      .map((a, i) => ({ href: '#top', ...a, no: String(i + 1).padStart(2, '0') }))
+      .map((a) => ({ ...a, bg: a.image ? '#FBFBF9 url(' + a.image + ') center/contain no-repeat' : 'repeating-linear-gradient(135deg,#ECEBE7 0 9px,#F4F3F0 9px 18px)', label: a.image ? '' : 'Article image', nolabel: a.image ? '' : a.no }));
     const cat = this.state.cat;
     const list = cat === 'All' ? all : all.filter((a) => a.cat === cat);
     const n = list.length;

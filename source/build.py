@@ -62,8 +62,9 @@ def out_file(lang, path):
 
 
 # ------------------------------------------------------------------ head
-def head(page, lang, extra_ld=None, meta=None, path=None, langs=None, og_type='website'):
+def head(page, lang, extra_ld=None, meta=None, path=None, langs=None, og_type='website', image=None):
     title, desc = meta or META[page][lang]
+    og_img = image or OG_IMAGE
     path = ALL_PAGES[page] if path is None else path
     langs = langs or LANGS
     canon = url(lang, path)
@@ -105,7 +106,7 @@ def head(page, lang, extra_ld=None, meta=None, path=None, langs=None, og_type='w
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{canon}">
-<meta property="og:image" content="{OG_IMAGE}">
+<meta property="og:image" content="{og_img}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="{OG_LOCALE[lang]}">
@@ -186,7 +187,7 @@ def transform(src, lang, page=''):
         s = s.replace(anchor, faq_html(lang) + anchor)
     if page == 'resources':
         items = [{'cat': a['cat'], 'time': a['time'], 'title': a[lang]['title'], 'excerpt': a[lang]['excerpt'],
-                  'href': P + art_path(a)} for a in published(lang)]
+                  'href': P + art_path(a), 'image': f"/assets/articles/{a['slug']}-card.jpg"} for a in published(lang)]
         assert 'const ARTICLES = [];' in s, 'resources anchor'
         s = s.replace('const ARTICLES = [];', 'const ARTICLES = ' + json.dumps(items, ensure_ascii=False).replace('</', '<\\/') + ';')
     if page == 'services':
@@ -315,6 +316,7 @@ nav.site{gap:18px}nav.site a{opacity:1}
 .meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#6F6E69;margin:0 0 18px}
 .meta b{color:#0B0B0B;font-weight:500}
 article h1{text-transform:none;font-size:clamp(34px,5vw,58px);letter-spacing:-.03em;line-height:1.02;font-weight:600}
+article .cover{display:block;width:100%;height:auto;border:1px solid #DAD9D4;margin:0 0 32px}
 .byline{font-size:14px;color:#3A3A38;border-top:1px solid #DAD9D4;border-bottom:1px solid #DAD9D4;padding:12px 0;margin:0 0 32px}
 article .body>p:first-child{font-size:19px;line-height:1.5}
 article h2{font-size:26px;letter-spacing:-.02em;margin:48px 0 10px;line-height:1.15}
@@ -345,10 +347,11 @@ def article_page(a, lang):
     body = md.markdown((ART_DIR / f"{a['slug']}.{lang}.md").read_text(encoding='utf-8'), extensions=['tables'])
     body = body.replace('<a href="http', '<a rel="noopener" target="_blank" href="http')
     cat = CAT_LABEL[lang].get(a['cat'], a['cat'])
+    wide, card = f"/assets/articles/{a['slug']}-wide.jpg", f"/assets/articles/{a['slug']}-card.jpg"
     ld = [
         {'@type': 'BlogPosting', '@id': canon + '#article', 'headline': t['title'], 'description': t['description'],
          'datePublished': a['date'], 'dateModified': a.get('modified', a['date']), 'inLanguage': lang,
-         'mainEntityOfPage': canon, 'image': OG_IMAGE, 'articleSection': cat, 'keywords': ', '.join(t['keywords']),
+         'mainEntityOfPage': canon, 'image': [SITE + wide, SITE + card], 'articleSection': cat, 'keywords': ', '.join(t['keywords']),
          'author': {'@type': 'Person', 'name': AUTHOR['name'], 'jobTitle': AUTHOR['role'][lang], 'worksFor': {'@id': SITE + '/#org'}},
          'publisher': {'@id': SITE + '/#org'}, 'isPartOf': {'@id': SITE + '/#website'},
          'citation': [u for _, u in a['sources']]},
@@ -359,7 +362,7 @@ def article_page(a, lang):
             {'@type': 'ListItem', 'position': 2, 'name': T['resources'], 'item': url(lang, '/resources')},
             {'@type': 'ListItem', 'position': 3, 'name': t['title'], 'item': canon}]},
     ]
-    h = head('resources', lang, ld, meta=(t['seo_title'], t['description']), path=path, langs=langs, og_type='article')
+    h = head('resources', lang, ld, meta=(t['seo_title'], t['description']), path=path, langs=langs, og_type='article', image=SITE + wide)
     h += f'<meta property="article:published_time" content="{a["date"]}">\n'
     faq = ''.join(f'<h3>{e(q)}</h3><p>{e(r)}</p>' for q, r in t['faq'])
     src = ''.join(f'<li><a rel="noopener" target="_blank" href="{e(u)}">{e(n)}</a></li>' for n, u in a['sources'])
@@ -384,6 +387,7 @@ def article_page(a, lang):
 <div class="meta"><b>{e(cat)}</b><span>{a['time'].replace('min', '').strip()} {T['read']}</span><time datetime="{a['date']}">{fdate(a['date'], lang)}</time></div>
 <h1>{e(t['title'])}</h1>
 <p class="byline">{T['by']} <strong>{AUTHOR['name']}</strong>, {AUTHOR['role'][lang]} · {T['updated']} {fdate(a['date'], lang)}</p>
+<img class="cover" src="{wide}" alt="{e(t['title'])}" width="1200" height="630">
 <div class="body">{body}</div>
 <section class="faq"><h2>{T['faq']}</h2>{faq}</section>
 <div class="cta"><p>{e(t['cta'])}</p><a href="{P}/get-started">{T['cta']} ↗</a></div>
@@ -548,6 +552,8 @@ Gecanor Beauty Tech (legal name {COMPANY['legal']}) works as a full-service, whi
 
 # ------------------------------------------------------------------ main
 def main():
+    import covers
+    covers.main()  # crea las portadas que falten
     jobs = [(p, l) for p in APP_PAGES for l in LANGS]
     # 1) páginas sin pre-render (para poder renderizarlas)
     for page, lang in jobs:
