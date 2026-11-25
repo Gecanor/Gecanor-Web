@@ -336,7 +336,93 @@ article li{margin:4px 0}
 .src{font-size:14px}.src li{margin:2px 0}
 .disc{font-size:13px;color:#6F6E69;font-style:italic}
 .related a{display:block;padding:14px 0;border-top:1px solid #DAD9D4;text-decoration:none;font-weight:500}.related a:hover{text-decoration:underline}
+.sh{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;border-bottom:0}
+.sh .logo{width:84px;height:70px}
+.sh nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:22px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.sh nav a{opacity:1;text-decoration:none}.sh nav a:hover{color:#6F6E69}
+.sh nav a.on{text-decoration:underline;text-underline-offset:4px}
+.sh nav a.gs{padding:10px 16px;background:#0B0B0B;color:#fff}.sh nav a.gs:hover{background:#3A3A38;color:#fff}
+.sh .lg{display:flex;align-items:center;gap:2px}.sh .lg a{padding:4px 5px;font-size:11px;opacity:.45}.sh .lg a[aria-current]{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.sf{background:#0B0B0B;color:#fff;padding:48px 24px 24px;border-top:0;font-family:Archivo,Helvetica,Arial,sans-serif;font-size:15px;color:#fff;text-transform:none}
+.sf a{text-decoration:none}.sf a:hover{color:#8F8E89}
+.sf .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;line-height:1.5}
+.sf .k{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:10px}
+.sf .st{display:flex;flex-direction:column;gap:4px}
+.sf img{display:block;margin:20px 0 14px;width:min(100%,720px);height:auto}
+.sf .bt{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:18px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase}
+@media (max-width:760px){.sh{gap:8px}.sh nav{gap:10px 9px;font-size:11px;letter-spacing:.02em}html[lang="en"] .sh nav{gap:10px 12px;font-size:12px;letter-spacing:.06em}html[lang="ca"] .sh nav{gap:10px 12px;letter-spacing:.04em}.sh .lg{flex-basis:100%;justify-content:flex-end}.sh nav a.gs{margin-top:5px}.sh .logo{flex:0 0 74px;width:74px;height:64px;margin-left:-12px}}
 """
+
+SITE_TXT = {
+ "en": {
+  "work": "Work",
+  "services": "Services",
+  "studio": "Studio",
+  "resources": "Resources",
+  "gs": "Get Started",
+  "collab": "Let's collaborate!",
+  "spain": "Spain",
+  "china": "China",
+  "index": "Index",
+  "home": "Home",
+  "start": "Get Started",
+  "legal": "Legal &amp; privacy",
+  "cookies": "Cookies"
+ },
+ "es": {
+  "work": "Proyectos",
+  "services": "Servicios",
+  "studio": "Estudio",
+  "resources": "Recursos",
+  "gs": "Empezar",
+  "collab": "¡Colaboremos!",
+  "spain": "España",
+  "china": "China",
+  "index": "Índice",
+  "home": "Inicio",
+  "start": "Empezar",
+  "legal": "Aviso legal y privacidad",
+  "cookies": "Cookies"
+ },
+ "ca": {
+  "work": "Projectes",
+  "services": "Serveis",
+  "studio": "Estudi",
+  "resources": "Recursos",
+  "gs": "Comencem",
+  "collab": "Col·laborem!",
+  "spain": "Espanya",
+  "china": "Xina",
+  "index": "Índex",
+  "home": "Inici",
+  "start": "Comencem",
+  "legal": "Avís legal i privacitat",
+  "cookies": "Galetes"
+ }
+}
+SITE_CODE = {'en': 'EN', 'es': 'ES', 'ca': 'CAT'}
+
+
+def site_header(lang, path, langs):
+    t, P = SITE_TXT[lang], PREFIX[lang]
+    home = local(lang, '')
+    lg = ''.join(f'<a href="{local(l, path)}" hreflang="{l}"' + (' aria-current="page"' if l == lang else '') + f'>{SITE_CODE[l]}</a>' for l in langs)
+    return (f'<header class="sh"><a class="logo" href="{home}" aria-label="Gecanor Beauty Tech"></a>\n'
+            f'<nav class="site"><a href="{P}/#work">{t["work"]}</a><a href="{P}/services">{t["services"]}</a><a href="{P}/#studio">{t["studio"]}</a>'
+            f'<a class="on" href="{P}/resources">{t["resources"]}</a><a class="gs" href="{P}/get-started">{t["gs"]}</a><span class="lg">{lg}</span></nav></header>')
+
+
+def site_footer(lang):
+    t, P = SITE_TXT[lang], PREFIX[lang]
+    home = local(lang, '')
+    return (f'<footer class="sf"><div class="cols">\n'
+            f'<div><div class="k">{t["collab"]}</div><div class="st"><a href="mailto:social@gecanor.com">social@gecanor.com</a><a href="https://www.instagram.com/gecanor.beautytech/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://www.linkedin.com/company/gecanor/posts/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div></div>\n'
+            f'<div><div class="k">{t["spain"]}</div>C/ Balmes 127, Principal 2ºA<br>08008 Barcelona</div>\n'
+            f'<div><div class="k">{t["china"]}</div>Wanke Jiazhouwan V-Pai, 501<br>610036 Chengdu</div>\n'
+            f'<div class="st"><div class="k" style="margin-bottom:6px">{t["index"]}</div><a href="{home}">{t["home"]}</a><a href="{P}/services">{t["services"]}</a><a href="{P}/resources">{t["resources"]}</a><a href="{P}/get-started">{t["start"]}</a></div>\n'
+            f'</div><img src="/assets/gecanor-logo-bt-white.png" alt="gecanor. beauty tech" width="720" height="160" loading="lazy">\n'
+            f'<div class="bt"><span>© 2026 Gecanor Beauty Tech · <a href="{P}/legal">{t["legal"]}</a> · <a href="{P}/cookies">{t["cookies"]}</a></span><span>Ref. GCN — Barcelona / Chengdu</span></div></footer>')
+
 
 
 def fdate(d, lang):
@@ -386,8 +472,7 @@ def article_page(a, lang):
 <style>{ART_CSS}</style>
 </head>
 <body>
-<header><a class="logo" href="{home}" aria-label="Gecanor Beauty Tech"></a>
-<nav class="site"><a href="{P}/services">{T['services']}</a><a href="{P}/resources">{T['resources']}</a><a href="{P}/get-started">{T['start']}</a></nav></header>
+{site_header(lang, path, langs)}
 <main>
 <article>
 <p class="crumbs"><a href="{home}">{T['home']}</a> / <a href="{P}/resources">{T['resources']}</a> / {e(cat)}</p>
@@ -402,7 +487,7 @@ def article_page(a, lang):
 {related}
 </article>
 </main>
-<footer>© 2026 Gecanor Beauty Tech · <a href="{P}/legal">{legal}</a> · <a href="{P}/cookies">{cookies}</a></footer>
+{site_footer(lang)}
 </body>
 </html>
 """

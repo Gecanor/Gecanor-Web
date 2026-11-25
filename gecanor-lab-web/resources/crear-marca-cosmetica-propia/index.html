@@ -62,11 +62,26 @@ article li{margin:4px 0}
 .src{font-size:14px}.src li{margin:2px 0}
 .disc{font-size:13px;color:#6F6E69;font-style:italic}
 .related a{display:block;padding:14px 0;border-top:1px solid #DAD9D4;text-decoration:none;font-weight:500}.related a:hover{text-decoration:underline}
+.sh{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;border-bottom:0}
+.sh .logo{width:84px;height:70px}
+.sh nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:22px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.sh nav a{opacity:1;text-decoration:none}.sh nav a:hover{color:#6F6E69}
+.sh nav a.on{text-decoration:underline;text-underline-offset:4px}
+.sh nav a.gs{padding:10px 16px;background:#0B0B0B;color:#fff}.sh nav a.gs:hover{background:#3A3A38;color:#fff}
+.sh .lg{display:flex;align-items:center;gap:2px}.sh .lg a{padding:4px 5px;font-size:11px;opacity:.45}.sh .lg a[aria-current]{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.sf{background:#0B0B0B;color:#fff;padding:48px 24px 24px;border-top:0;font-family:Archivo,Helvetica,Arial,sans-serif;font-size:15px;color:#fff;text-transform:none}
+.sf a{text-decoration:none}.sf a:hover{color:#8F8E89}
+.sf .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;line-height:1.5}
+.sf .k{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase;margin-bottom:10px}
+.sf .st{display:flex;flex-direction:column;gap:4px}
+.sf img{display:block;margin:20px 0 14px;width:min(100%,720px);height:auto}
+.sf .bt{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:18px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase}
+@media (max-width:760px){.sh{gap:8px}.sh nav{gap:10px 9px;font-size:11px;letter-spacing:.02em}html[lang="en"] .sh nav{gap:10px 12px;font-size:12px;letter-spacing:.06em}html[lang="ca"] .sh nav{gap:10px 12px;letter-spacing:.04em}.sh .lg{flex-basis:100%;justify-content:flex-end}.sh nav a.gs{margin-top:5px}.sh .logo{flex:0 0 74px;width:74px;height:64px;margin-left:-12px}}
 </style>
 </head>
 <body>
-<header><a class="logo" href="/" aria-label="Gecanor Beauty Tech"></a>
-<nav class="site"><a href="/services">Services</a><a href="/resources">Resources</a><a href="/get-started">Get started</a></nav></header>
+<header class="sh"><a class="logo" href="/" aria-label="Gecanor Beauty Tech"></a>
+<nav class="site"><a href="/#work">Work</a><a href="/services">Services</a><a href="/#studio">Studio</a><a class="on" href="/resources">Resources</a><a class="gs" href="/get-started">Get Started</a><span class="lg"><a href="/resources/crear-marca-cosmetica-propia" hreflang="en" aria-current="page">EN</a><a href="/es/resources/crear-marca-cosmetica-propia" hreflang="es">ES</a><a href="/ca/resources/crear-marca-cosmetica-propia" hreflang="ca">CAT</a></span></nav></header>
 <main>
 <article>
 <p class="crumbs"><a href="/">Home</a> / <a href="/resources">Resources</a> / Brand &amp; market</p>
@@ -139,6 +154,12 @@ article li{margin:4px 0}
 
 </article>
 </main>
-<footer>© 2026 Gecanor Beauty Tech · <a href="/legal">Legal & privacy</a> · <a href="/cookies">Cookies</a></footer>
+<footer class="sf"><div class="cols">
+<div><div class="k">Let's collaborate!</div><div class="st"><a href="mailto:social@gecanor.com">social@gecanor.com</a><a href="https://www.instagram.com/gecanor.beautytech/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://www.linkedin.com/company/gecanor/posts/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div></div>
+<div><div class="k">Spain</div>C/ Balmes 127, Principal 2ºA<br>08008 Barcelona</div>
+<div><div class="k">China</div>Wanke Jiazhouwan V-Pai, 501<br>610036 Chengdu</div>
+<div class="st"><div class="k" style="margin-bottom:6px">Index</div><a href="/">Home</a><a href="/services">Services</a><a href="/resources">Resources</a><a href="/get-started">Get Started</a></div>
+</div><img src="/assets/gecanor-logo-bt-white.png" alt="gecanor. beauty tech" width="720" height="160" loading="lazy">
+<div class="bt"><span>© 2026 Gecanor Beauty Tech · <a href="/legal">Legal &amp; privacy</a> · <a href="/cookies">Cookies</a></span><span>Ref. GCN — Barcelona / Chengdu</span></div></footer>
 </body>
 </html>
