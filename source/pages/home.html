@@ -62,27 +62,33 @@
   }
   @media (max-width: 760px) { header { gap: 8px !important; } header nav { gap: 10px 9px !important; font-size: 11px !important; letter-spacing: 0.02em !important; } html[lang="en"] header nav { gap: 10px 12px !important; font-size: 12px !important; letter-spacing: 0.06em !important; } html[lang="ca"] header nav { gap: 10px 12px !important; letter-spacing: 0.04em !important; } header nav > span { flex-basis: 100%; justify-content: flex-end; } header nav > a:last-of-type { margin-top: 5px; } header > a[aria-label="Gecanor home"] { flex: 0 0 74px !important; width: 74px !important; height: 64px !important; margin-left: -12px !important; } }
   @media (min-width: 761px) { [data-svc-note] { white-space: nowrap; } }
+  @media (max-width: 760px) { [data-site-header] { position: absolute !important; background: transparent !important; } [data-top-sec] { padding-top: 24px !important; } }
 </style>
 <script src="./i18n.js"></script>
 <script src="./lab-i18n.js"></script>
 </helmet>
 
-<div style="width:100%;overflow-x:hidden">
-
-  <section id="top" style="position:relative;padding:20px 24px 26px;display:flex;flex-direction:column">
-    <header style="display:flex;justify-content:space-between;align-items:center;gap:16px;position:relative;z-index:20">
-      <a href="#top" aria-label="Gecanor home" style="display:block;width:84px;height:70px;background:#0B0B0B;-webkit-mask:url(./assets/gr.svg) center/contain no-repeat;mask:url(./assets/gr.svg) center/contain no-repeat"></a>
+<div style="width:100%;overflow-x:hidden;position:relative">
+  <header data-site-header="1" style="display:flex;justify-content:space-between;align-items:center;gap:16px;position:fixed;top:0;left:0;right:0;padding:20px 24px;z-index:500;color:#FFFFFF;mix-blend-mode:difference">
+      <a href="#top" aria-label="Gecanor home" style="display:block;width:84px;height:70px;background:#FFFFFF;-webkit-mask:url(./assets/gr.svg) center/contain no-repeat;mask:url(./assets/gr.svg) center/contain no-repeat"></a>
       <nav style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:22px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase">
         <a href="#work">Work</a>
         <a href="/services">Services</a>
         <a href="#studio">Studio</a>
         <a href="/resources">Resources</a>
-        <a href="/get-started" style="padding:10px 16px;background:#0B0B0B;color:#FFFFFF" style-hover="background:#3A3A38;color:#FFFFFF">Get Started</a>
+        <a href="/get-started" style="padding:10px 16px;background:#FFFFFF;color:#000000" style-hover="background:#C5C4BF;color:#000000">Get Started</a>
           <span style="display:flex;align-items:center;gap:2px">
-            <sc-for list="{{ langs }}" as="l" hint-placeholder-count="3"><button type="button" onClick="{{ l.pick }}" aria-pressed="{{ l.on }}" style="background:none;border:0;padding:4px 5px;cursor:pointer;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;color:#0B0B0B;opacity:{{ l.op }};text-decoration:{{ l.ul }};text-underline-offset:4px">{{ l.code }}</button></sc-for>
+            <sc-for list="{{ langs }}" as="l" hint-placeholder-count="3"><button type="button" onClick="{{ l.pick }}" aria-pressed="{{ l.on }}" style="background:none;border:0;padding:4px 5px;cursor:pointer;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;color:#FFFFFF;opacity:{{ l.op }};text-decoration:{{ l.ul }};text-underline-offset:4px">{{ l.code }}</button></sc-for>
           </span>
       </nav>
     </header>
+
+  <section data-intro-video="1" aria-label="Gecanor Beauty Tech" style="position:relative;height:100svh;min-height:520px;width:100%;overflow:hidden;background:#D9D7D4">
+    <video src="./assets/hero.mp4" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></video>
+  </section>
+
+  <section id="top" data-top-sec="1" style="position:relative;padding:24px 24px 26px;display:flex;flex-direction:column">
+    
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:18px;padding:9px 0;border-top:1px solid #0B0B0B;border-bottom:1px solid #DAD9D4;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;color:#6F6E69;text-transform:uppercase">
       <span style="color:#0B0B0B">Gecanor Beauty Tech</span>
       <span>Ref. GCN-2026</span>
@@ -337,6 +343,8 @@ class Component extends DCLogic {
   z = 600;
 
   componentDidMount() {
+    this.onHdr = () => { const h = document.querySelector('[data-site-header]'), v = document.querySelector('[data-intro-video]'); if (!h || !v) return; const over = window.scrollY < v.offsetHeight - 90 || getComputedStyle(h).position !== 'fixed'; h.style.mixBlendMode = over ? 'difference' : 'normal'; h.style.filter = over ? 'none' : 'invert(1)'; h.style.backgroundColor = over ? 'transparent' : '#040406'; };
+    window.addEventListener('scroll', this.onHdr, { passive: true }); window.addEventListener('resize', this.onHdr); this.onHdr();
     const goHash = (h, smooth) => { const el = h && h.length > 1 && document.getElementById(h.slice(1)); if (!el) return false; window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: smooth ? 'smooth' : 'auto' }); return true; };
     if (location.hash && location.hash !== '#top') [80, 400, 1000, 1800].forEach((d) => setTimeout(() => goHash(location.hash, false), d));
     this.onHashClick = (e) => { const a = e.target.closest && e.target.closest('a[href^="#"], a[href^="/#"]'); if (!a) return; const h = a.getAttribute('href').replace(/^\//, ''); if (h === '#top') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; } if (goHash(h, true)) { e.preventDefault(); history.replaceState(null, '', h); } };

@@ -336,8 +336,8 @@ article li{margin:4px 0}
 .src{font-size:14px}.src li{margin:2px 0}
 .disc{font-size:13px;color:#6F6E69;font-style:italic}
 .related a{display:block;padding:14px 0;border-top:1px solid #DAD9D4;text-decoration:none;font-weight:500}.related a:hover{text-decoration:underline}
-.sh{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;border-bottom:0}
-.sh .logo{width:84px;height:70px}
+.sh{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;border-bottom:0}.sh{position:sticky;top:0;z-index:500;background:#FBFBF9}
+.sh .logo{width:84px;height:70px}@media (max-width:760px){.sh{position:static}}
 .sh nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:22px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
 .sh nav a{opacity:1;text-decoration:none}.sh nav a:hover{color:#6F6E69}
 .sh nav a.on{text-decoration:underline;text-underline-offset:4px}

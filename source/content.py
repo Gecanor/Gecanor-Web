@@ -127,7 +127,7 @@ def legal_body(lang):
 <h3>Cuánto tiempo los conservamos</h3>
 <p>Los datos de contacto se conservan mientras dure la relación o la gestión de tu consulta y, después, durante los plazos legales de prescripción de responsabilidades. Los datos de analítica se conservan un máximo de 14 meses.</p>
 <h3>Con quién los compartimos</h3>
-<p>No vendemos ni cedemos tus datos. Para prestar el servicio usamos proveedores que actúan como encargados del tratamiento: Vercel Inc. (alojamiento web), FormSubmit (envío del formulario de contacto por correo) y Google Ireland Ltd. (Google Analytics y Google Fonts). Algunos de ellos pueden tratar datos fuera del Espacio Económico Europeo, con las garantías previstas en el RGPD (decisión de adecuación UE-EE. UU. o cláusulas contractuales tipo).</p>
+<p>No vendemos ni cedemos tus datos. Para prestar el servicio usamos proveedores que actúan como encargados del tratamiento: Vercel Inc. (alojamiento web), FormSubmit (envío del formulario de contacto por correo) y Google Ireland Ltd. (Google Analytics, Google Fonts y Google Sheets, donde registramos las solicitudes del formulario). Algunos de ellos pueden tratar datos fuera del Espacio Económico Europeo, con las garantías previstas en el RGPD (decisión de adecuación UE-EE. UU. o cláusulas contractuales tipo).</p>
 <h3>Tus derechos</h3>
 <p>Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad, y retirar tu consentimiento en cualquier momento, escribiendo a <a href="mailto:{c['email']}">{c['email']}</a>. Si consideras que no hemos atendido correctamente tu solicitud, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" rel="noopener">www.aepd.es</a>).</p>
 <h2>4. Legislación aplicable</h2>
@@ -159,7 +159,7 @@ def legal_body(lang):
 <h3>Quant de temps les conservem</h3>
 <p>Les dades de contacte es conserven mentre duri la relació o la gestió de la teva consulta i, després, durant els terminis legals de prescripció de responsabilitats. Les dades d'analítica es conserven un màxim de 14 mesos.</p>
 <h3>Amb qui les compartim</h3>
-<p>No venem ni cedim les teves dades. Per prestar el servei fem servir proveïdors que actuen com a encarregats del tractament: Vercel Inc. (allotjament web), FormSubmit (enviament del formulari de contacte per correu) i Google Ireland Ltd. (Google Analytics i Google Fonts). Alguns poden tractar dades fora de l'Espai Econòmic Europeu, amb les garanties previstes al RGPD (decisió d'adequació UE-EUA o clàusules contractuals tipus).</p>
+<p>No venem ni cedim les teves dades. Per prestar el servei fem servir proveïdors que actuen com a encarregats del tractament: Vercel Inc. (allotjament web), FormSubmit (enviament del formulari de contacte per correu) i Google Ireland Ltd. (Google Analytics, Google Fonts i Google Sheets, on registrem les sol·licituds del formulari). Alguns poden tractar dades fora de l'Espai Econòmic Europeu, amb les garanties previstes al RGPD (decisió d'adequació UE-EUA o clàusules contractuals tipus).</p>
 <h3>Els teus drets</h3>
 <p>Pots exercir els drets d'accés, rectificació, supressió, oposició, limitació del tractament i portabilitat, i retirar el consentiment en qualsevol moment, escrivint a <a href="mailto:{c['email']}">{c['email']}</a>. Si consideres que no hem atès correctament la teva sol·licitud, pots reclamar davant l'Agència Espanyola de Protecció de Dades (<a href="https://www.aepd.es" rel="noopener">www.aepd.es</a>).</p>
 <h2>4. Legislació aplicable</h2>
@@ -190,7 +190,7 @@ def legal_body(lang):
 <h3>How long we keep it</h3>
 <p>Contact data is kept while your enquiry or our relationship is active and afterwards for the statutory limitation periods. Analytics data is kept for a maximum of 14 months.</p>
 <h3>Who we share it with</h3>
-<p>We do not sell or share your data. We use service providers acting as processors: Vercel Inc. (web hosting), FormSubmit (delivery of the contact form by email) and Google Ireland Ltd. (Google Analytics and Google Fonts). Some may process data outside the European Economic Area under the safeguards provided by the GDPR (EU-US adequacy decision or standard contractual clauses).</p>
+<p>We do not sell or share your data. We use service providers acting as processors: Vercel Inc. (web hosting), FormSubmit (delivery of the contact form by email) and Google Ireland Ltd. (Google Analytics, Google Fonts and Google Sheets, where we log form enquiries). Some may process data outside the European Economic Area under the safeguards provided by the GDPR (EU-US adequacy decision or standard contractual clauses).</p>
 <h3>Your rights</h3>
 <p>You can exercise your rights of access, rectification, erasure, objection, restriction and portability, and withdraw your consent at any time, by writing to <a href="mailto:{c['email']}">{c['email']}</a>. You may also lodge a complaint with the Spanish Data Protection Agency (<a href="https://www.aepd.es" rel="noopener">www.aepd.es</a>).</p>
 <h2>4. Governing law</h2>

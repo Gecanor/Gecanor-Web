@@ -90,13 +90,14 @@
   @keyframes resTick { 0%, 100% { opacity: 0.15; } 10% { opacity: 1; } }
   @media (max-width: 760px) { [data-sticker] { scale: 0.72; } [data-res-s2] { right: auto !important; left: 20px !important; top: 210px !important; translate: 3px -11px; } [data-res-s3] { right: 10px !important; top: 300px !important; translate: 23px -119px; } [data-res-sticker] { right: 14px !important; top: 118px !important; translate: 17px 287px; } }
   @media (max-width: 760px) { header { gap: 8px !important; } header nav { gap: 10px 9px !important; font-size: 11px !important; letter-spacing: 0.02em !important; } html[lang="en"] header nav { gap: 10px 12px !important; font-size: 12px !important; letter-spacing: 0.06em !important; } html[lang="ca"] header nav { gap: 10px 12px !important; letter-spacing: 0.04em !important; } header nav > span { flex-basis: 100%; justify-content: flex-end; } header nav > a:last-of-type { margin-top: 5px; } header > a[aria-label="Gecanor home"] { flex: 0 0 74px !important; width: 74px !important; height: 64px !important; margin-left: -12px !important; } }
+  @media (max-width: 760px) { [data-site-header] { position: static !important; padding: 0 !important; } [data-top-sec] { padding-top: 20px !important; } }
 </style>
 </head>
 <body>
 <div id="ssr"><div class="sc-host" data-sc-name="Root"><div data-dc-tpl="9" style="width: 100%; overflow-x: hidden;">
 
-  <section data-dc-tpl="10" id="top" style="position: relative; padding: 20px 24px 0px;">
-    <header data-dc-tpl="11" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+  <section data-dc-tpl="10" id="top" data-top-sec="1" style="position: relative; padding: 110px 24px 0px;">
+    <header data-dc-tpl="11" data-site-header="1" style="display: flex; justify-content: space-between; align-items: center; gap: 16px; position: fixed; top: 0px; left: 0px; right: 0px; padding: 20px 24px; background: rgb(251, 251, 249); z-index: 500;">
       <a data-dc-tpl="12" href="/ca" aria-label="Gecanor home" style="display: block; width: 84px; height: 70px; background: rgb(11, 11, 11); mask: url(&quot;/assets/gr.svg&quot;) center center / contain no-repeat;"></a>
       <nav data-dc-tpl="13" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 22px; font-family: &quot;IBM Plex Mono&quot;, ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;">
         <a data-dc-tpl="14" href="/ca#work">Projectes</a>
@@ -190,6 +191,7 @@
   @keyframes resTick { 0%, 100% { opacity: 0.15; } 10% { opacity: 1; } }
   @media (max-width: 760px) { [data-sticker] { scale: 0.72; } [data-res-s2] { right: auto !important; left: 20px !important; top: 210px !important; translate: 3px -11px; } [data-res-s3] { right: 10px !important; top: 300px !important; translate: 23px -119px; } [data-res-sticker] { right: 14px !important; top: 118px !important; translate: 17px 287px; } }
   @media (max-width: 760px) { header { gap: 8px !important; } header nav { gap: 10px 9px !important; font-size: 11px !important; letter-spacing: 0.02em !important; } html[lang="en"] header nav { gap: 10px 12px !important; font-size: 12px !important; letter-spacing: 0.06em !important; } html[lang="ca"] header nav { gap: 10px 12px !important; letter-spacing: 0.04em !important; } header nav > span { flex-basis: 100%; justify-content: flex-end; } header nav > a:last-of-type { margin-top: 5px; } header > a[aria-label="Gecanor home"] { flex: 0 0 74px !important; width: 74px !important; height: 64px !important; margin-left: -12px !important; } }
+  @media (max-width: 760px) { [data-site-header] { position: static !important; padding: 0 !important; } [data-top-sec] { padding-top: 20px !important; } }
 </style>
 <script src="/i18n.js"></script>
 <script src="/lab-i18n.js"></script>
@@ -197,8 +199,8 @@
 
 <div style="width:100%;overflow-x:hidden">
 
-  <section id="top" style="position:relative;padding:20px 24px 0">
-    <header style="display:flex;justify-content:space-between;align-items:center;gap:16px">
+  <section id="top" data-top-sec="1" style="position:relative;padding:110px 24px 0">
+    <header data-site-header="1" style="display:flex;justify-content:space-between;align-items:center;gap:16px;position:fixed;top:0;left:0;right:0;padding:20px 24px;background:#FBFBF9;z-index:500">
       <a href="/ca" aria-label="Gecanor home" style="display:block;width:84px;height:70px;background:#0B0B0B;-webkit-mask:url(/assets/gr.svg) center/contain no-repeat;mask:url(/assets/gr.svg) center/contain no-repeat"></a>
       <nav style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:22px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase">
         <a href="/ca#work">Work</a>
