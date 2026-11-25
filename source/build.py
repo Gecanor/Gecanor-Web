@@ -131,21 +131,25 @@ def faq_ld(lang):
 
 
 MONO = "font-family:'IBM Plex Mono',ui-monospace,monospace"
+OPEN = ' open="{{ true }}"'  # el motor dc-runtime ignora un open vacío
 
 
 def faq_html(lang):
     e = html.escape
+    H = "font-family:var(--d-font, Archivo), Helvetica, sans-serif;font-weight:var(--d-weight, 850);font-stretch:var(--d-stretch, 62%);text-transform:var(--d-case, uppercase);letter-spacing:var(--d-ls, -0.015em)"
     items = ''.join(
-        f'<div style="display:grid;grid-template-columns:48px minmax(0,1fr);gap:6px 16px;padding:22px 0;border-top:1px solid #DAD9D4">'
+        f'<details data-faq-item="1"{OPEN if i == 0 else ""} style="border-top:1px solid #0B0B0B">'
+        f'<summary style="list-style:none;cursor:pointer;display:grid;grid-template-columns:36px minmax(0,1fr) 24px;gap:14px;align-items:baseline;padding:18px 0">'
         f'<span style="{MONO};font-size:12px;color:#6F6E69">{i + 1:02d}</span>'
-        f'<div><h3 style="margin:0 0 8px;font-size:clamp(18px,1.6vw,22px);line-height:1.25;font-weight:600">{e(q)}</h3>'
-        f'<p style="margin:0;max-width:72ch;font-size:16px;line-height:1.55;color:#3A3A38">{e(a)}</p></div></div>'
+        f'<h3 style="margin:0;font-size:clamp(18px,1.6vw,22px);line-height:1.25;font-weight:500;text-wrap:pretty">{e(q)}</h3>'
+        f'<span data-faq-sign="1" style="{MONO};font-size:18px;line-height:1;text-align:right"></span></summary>'
+        f'<p style="margin:0;padding:0 38px 22px 50px;max-width:68ch;font-size:16px;line-height:1.55;color:#3A3A38;text-wrap:pretty">{e(a)}</p></details>'
         for i, (q, a) in enumerate(FAQ[lang]))
-    return (f'<section id="faq" style="padding:72px 24px 56px;border-top:1px solid #0B0B0B">'
-            f'<div style="display:flex;justify-content:space-between;gap:16px;margin-bottom:20px;{MONO};font-size:12px;color:#6F6E69;text-transform:uppercase">'
-            f'<span>{FAQ_LABEL[lang]}</span><span>{len(FAQ[lang]):02d}</span></div>'
-            f'<h2 style="margin:0 0 28px;font-size:clamp(40px,7vw,96px);line-height:0.9;letter-spacing:-0.03em;text-transform:uppercase;font-weight:800">{FAQ_TITLE[lang]}</h2>'
-            f'{items}</section>\n\n  ')
+    return (f'<section id="faq" style="position:relative;padding:88px 24px;border-top:1px solid #0B0B0B;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:32px 48px;align-items:start">'
+            f'<div style="display:flex;flex-direction:column;gap:20px;position:sticky;top:110px">'
+            f'<div style="{MONO};font-size:12px;letter-spacing:0.06em;color:#6F6E69;text-transform:uppercase"><span>{FAQ_LABEL[lang]}</span></div>'
+            f'<h2 data-semi="1" style="margin:0;font-size:calc(clamp(46px,6.4vw,112px) * var(--d-scale, 1));line-height:calc(0.86 + var(--d-lh, 0));{H};text-wrap:balance">{FAQ_TITLE[lang]}</h2></div>'
+            f'<div data-faq-list="1" style="display:flex;flex-direction:column;border-bottom:1px solid #0B0B0B;padding-top:34px">{items}</div></section>\n\n  ')
 
 
 # ------------------------------------------------------------------ app pages
@@ -350,7 +354,7 @@ article li{margin:4px 0}
 .sf .st{display:flex;flex-direction:column;gap:4px}
 .sf img{display:block;margin:20px 0 14px;width:min(100%,720px);height:auto}
 .sf .bt{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:18px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8F8E89;text-transform:uppercase}
-@media (max-width:760px){.sh{gap:8px}.sh nav{gap:10px 9px;font-size:11px;letter-spacing:.02em}html[lang="en"] .sh nav{gap:10px 12px;font-size:12px;letter-spacing:.06em}html[lang="ca"] .sh nav{gap:10px 12px;letter-spacing:.04em}.sh .lg{flex-basis:100%;justify-content:flex-end}.sh nav a.gs{margin-top:5px}.sh .logo{flex:0 0 74px;width:74px;height:64px;margin-left:-12px}}
+@media (max-width:760px){.sh{gap:8px}.sh nav{gap:10px 9px;font-size:11px;letter-spacing:.02em}html[lang="en"] .sh nav{gap:10px 12px;font-size:12px;letter-spacing:.06em}html[lang="ca"] .sh nav{gap:10px 12px;letter-spacing:.04em}.sh .lg{order:1;flex:1 1 50%;justify-content:flex-end;margin-top:5px}.sh nav a.gs{order:2;margin-top:5px}.sh .logo{flex:0 0 74px;width:74px;height:64px;margin-left:-12px}}
 """
 
 SITE_TXT = {
