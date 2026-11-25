@@ -80,7 +80,20 @@
         <a href="/services">Services</a>
         <a href="#studio">Studio</a>
         <a href="/resources">Resources</a>
-        <a href="/get-started" style="padding:10px 16px;background:#FFFFFF;color:#000000" style-hover="background:#C5C4BF;color:#000000">Get Started</a>
+        <a href="/get-started" data-gs="1" style="padding:10px 16px;background:#FFFFFF;color:#000000" style-hover="background:#C5C4BF;color:#000000">Get Started</a>
+          <span style="display:flex;align-items:center;gap:2px">
+            <sc-for list="{{ langs }}" as="l" hint-placeholder-count="3"><button type="button" onClick="{{ l.pick }}" aria-pressed="{{ l.on }}" style="background:none;border:0;padding:4px 5px;cursor:pointer;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;color:#FFFFFF;opacity:{{ l.op }};text-decoration:{{ l.ul }};text-underline-offset:4px">{{ l.code }}</button></sc-for>
+          </span>
+      </nav>
+    </header>
+    <header data-site-header="1" data-hdr-copy="1" aria-hidden="true" style="display:flex;justify-content:space-between;align-items:center;gap:16px;position:fixed;top:0;left:0;right:0;padding:20px 24px;z-index:500;color:#FFFFFF;visibility:hidden;pointer-events:none">
+      <a href="#top" aria-label="Gecanor home" style="display:block;width:84px;height:70px;background:#FFFFFF;-webkit-mask:url(./assets/gr.svg) center/contain no-repeat;mask:url(./assets/gr.svg) center/contain no-repeat"></a>
+      <nav style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:22px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase">
+        <a href="#work">Work</a>
+        <a href="/services">Services</a>
+        <a href="#studio">Studio</a>
+        <a href="/resources">Resources</a>
+        <a href="/get-started" data-gs="2" tabindex="-1" style="padding:10px 16px;background:#0B0B0B;color:#FFFFFF;visibility:visible;pointer-events:auto" style-hover="background:#3A3A38;color:#FFFFFF">Get Started</a>
           <span style="display:flex;align-items:center;gap:2px">
             <sc-for list="{{ langs }}" as="l" hint-placeholder-count="3"><button type="button" onClick="{{ l.pick }}" aria-pressed="{{ l.on }}" style="background:none;border:0;padding:4px 5px;cursor:pointer;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;color:#FFFFFF;opacity:{{ l.op }};text-decoration:{{ l.ul }};text-underline-offset:4px">{{ l.code }}</button></sc-for>
           </span>
@@ -173,7 +186,7 @@
         <a href="{{ p.href }}" target="{{ p.target }}" rel="noopener noreferrer" style="display:flex;flex-direction:column;gap:14px;transition:transform 300ms cubic-bezier(.3,.7,.3,1)" style-hover="transform:translateY(-4px);color:#0B0B0B">
           <div style="position:relative;aspect-ratio:4/3;background:#D9D8D3;overflow:hidden">
             <sc-if value="{{ p.isVideo }}" hint-placeholder-val="{{ true }}">
-              <video data-lazy="{{ p.video }}" muted="" loop="" playsinline="" preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></video>
+              <video data-lazy="{{ p.video }}" poster="{{ p.poster }}" muted="" loop="" playsinline="" preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></video>
             </sc-if>
             <sc-if value="{{ p.isSlides }}" hint-placeholder-val="{{ false }}">
               <sc-for list="{{ p.slides }}" as="sl" hint-placeholder-count="4">
@@ -347,7 +360,7 @@ class Component extends DCLogic {
   z = 600;
 
   componentDidMount() {
-    this.onHdr = () => { const h = document.querySelector('[data-site-header]'), v = document.querySelector('[data-intro-video]'); if (!h || !v) return; const over = window.scrollY < v.offsetHeight - 90 || getComputedStyle(h).position !== 'fixed'; h.style.mixBlendMode = over ? 'difference' : 'normal'; h.style.filter = over ? 'none' : 'invert(1)'; h.style.backgroundColor = over ? 'transparent' : '#040406'; };
+    this.onHdr = () => { const h = document.querySelector('[data-site-header]'), v = document.querySelector('[data-intro-video]'); if (!h || !v) return; const over = window.scrollY < v.offsetHeight - 90 || getComputedStyle(h).position !== 'fixed'; h.style.mixBlendMode = over ? 'difference' : 'normal'; h.style.filter = over ? 'none' : 'invert(1)'; h.style.backgroundColor = over ? 'transparent' : '#040406'; document.querySelectorAll('[data-gs="1"]').forEach((b) => { b.style.visibility = over ? 'hidden' : ''; }); const cp = document.querySelector('[data-hdr-copy]'); if (cp) cp.style.display = over ? 'flex' : 'none'; };
     window.addEventListener('scroll', this.onHdr, { passive: true }); window.addEventListener('resize', this.onHdr); this.onHdr();
     const goHash = (h, smooth) => { const el = h && h.length > 1 && document.getElementById(h.slice(1)); if (!el) return false; window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: smooth ? 'smooth' : 'auto' }); return true; };
     if (location.hash && location.hash !== '#top') [80, 400, 1000, 1800].forEach((d) => setTimeout(() => goHash(location.hash, false), d));
@@ -380,7 +393,7 @@ class Component extends DCLogic {
           const p = v.play(); if (p && p.catch) p.catch(() => {});
         } else if (!v.paused) v.pause();
       });
-    }, { rootMargin: '200px 0px' });
+    }, { rootMargin: '900px 0px' });
     this.observe();
 
     this.onDown = (e) => {
@@ -491,6 +504,7 @@ class Component extends DCLogic {
       projects: PROJECTS.map((p, i) => ({
         ...p,
         isVideo: !!p.video,
+        poster: p.video ? p.video.replace('proj-', 'poster-').replace('.mp4', '.jpg') : '',
         isSlides: !!p.images,
         slides: (p.images || []).map((src, j) => ({ src, op: j === this.state.slide % p.images.length ? 1 : 0 })),
         n: String(i + 1).padStart(3, '0'),
