@@ -111,6 +111,38 @@ ARTICLES = [
             ('Decisión 2013/674/UE · Directrices del anexo I (informe de seguridad)', 'https://eur-lex.europa.eu/eli/dec_impl/2013/674/oj'),
         ],
     },
+    {
+        'slug': 'fabricar-marca-de-cosmetica',
+        'date': '2026-11-26',
+        'cat': 'Formulation',
+        'time': '6 min',
+        'es': {
+            'title': 'Fabricar tu marca de cosmética: fases, plazos y con cuántas unidades empezar',
+            'seo_title': 'Fabricar tu marca de cosmética: plazos y pocas unidades',
+            'description': 'Cómo y cuánto se tarda en fabricar tu marca de cosmética: marca blanca o a medida, laboratorio a terceros, pedido mínimo desde 500 unidades, ensayos y plazos.',
+            'excerpt': 'Las seis fases para fabricar tu marca de cosmética, con cuántas unidades se puede empezar y cómo lanzar antes con marca blanca.',
+            'keywords': ['fabricación marca de cosmética', 'laboratorio para fabricar marca de cosmética pocas unidades', 'fabricar marca blanca cosméticos', 'creación marca de cosmética', 'fabricar cosméticos con mi marca', 'fabricación de cosméticos a terceros', 'cuánto se tarda en fabricar un cosmético', 'pedido mínimo cosméticos'],
+            'faq': [
+                ('¿Cuánto se tarda en fabricar mi marca de cosmética?',
+                 'Como orientación, unas 7 semanas con una fórmula de marca blanca y un envase de catálogo, de 2 a 4 meses si el envase es personalizado y unos 3 meses con una fórmula a medida, que necesita formulación y ensayos de estabilidad, compatibilidad y conservación.'),
+                ('¿Qué es lo que más alarga el desarrollo de un cosmético?',
+                 'Los ensayos de validación y el packaging personalizado. El challenge test, por ejemplo, dura como mínimo 28 días según el método ISO 11930.'),
+                ('¿Es más rápido fabricar cosméticos de marca blanca?',
+                 'Sí. La fórmula ya está desarrollada y tiene sus estudios hechos, así que te saltas la formulación y la mayoría de ensayos.'),
+                ('¿Puedo cambiar el envase cuando la fórmula ya está aprobada?',
+                 'Sí, pero hay que repetir el ensayo de compatibilidad entre fórmula y envase, lo que retrasa el lanzamiento.'),
+                ('¿Dónde puedo fabricar mi marca de cosmética con pocas unidades?',
+                 'En un laboratorio de fabricación a terceros que acepte tiradas cortas. En Gecanor coordinamos la fabricación con laboratorios españoles desde 500 unidades por referencia.'),
+            ],
+            'cta': 'Si tienes una idea de producto y quieres saber qué plazo realista tendría, cuéntanosla. Te respondemos con un primer estudio de viabilidad en 48 horas.',
+        },
+        'sources': [
+            ('Reglamento (CE) n.º 1223/2009 sobre los productos cosméticos', 'https://eur-lex.europa.eu/eli/reg/2009/1223/oj/spa'),
+            ('Cosmetics Europe · Guidelines on stability testing of cosmetic products', 'https://www.cosmeticseurope.eu/files/5914/6407/8121/Guidelines_on_Stability_Testing_of_Cosmetics_CE-CTFA_-_2004.pdf'),
+            ('ISO 11930:2019 · Evaluación de la protección antimicrobiana de un producto cosmético', 'https://www.iso.org/standard/75058.html'),
+            ('ISO/TR 18811:2018 · Directrices sobre ensayos de estabilidad de cosméticos', 'https://www.iso.org/standard/63465.html'),
+        ],
+    },
 ]
 
 for _a in ARTICLES:

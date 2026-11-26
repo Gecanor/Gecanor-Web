@@ -446,6 +446,10 @@ def article_page(a, lang):
     langs = [l for l in LANGS if l in a and (ART_DIR / f"{a['slug']}.{l}.md").exists() and a['date'] <= TODAY]
     body = md.markdown((ART_DIR / f"{a['slug']}.{lang}.md").read_text(encoding='utf-8'), extensions=['tables'])
     body = body.replace('<a href="http', '<a rel="noopener" target="_blank" href="http')
+    # enlaces a artículos aún no publicados en este idioma: texto sin enlace hasta su fecha
+    live = {o['slug'] for o in published(lang)}
+    body = re.sub(r'<a href="(?:/(?:es|ca))?/resources/([a-z0-9-]+)">(.*?)</a>',
+                  lambda m: m.group(0) if m.group(1) in live else m.group(2), body)
     cat = CAT_LABEL[lang].get(a['cat'], a['cat'])
     wide, card = '/assets/articles/' + cover_name(a['slug'], lang, 'wide'), '/assets/articles/' + cover_name(a['slug'], lang, 'card')
     ld = [
