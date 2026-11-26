@@ -153,6 +153,14 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.gecanor.com/resources/lanzar-marca-complementos-alimenticios</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.gecanor.com/resources/lanzar-marca-complementos-alimenticios"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.gecanor.com/es/resources/lanzar-marca-complementos-alimenticios"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://www.gecanor.com/ca/resources/lanzar-marca-complementos-alimenticios"/>
+    <lastmod>2026-11-26</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.gecanor.com/resources/crear-marca-cosmetica-propia</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gecanor.com/resources/crear-marca-cosmetica-propia"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.gecanor.com/es/resources/crear-marca-cosmetica-propia"/>
@@ -169,6 +177,14 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.gecanor.com/es/resources/lanzar-marca-complementos-alimenticios</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.gecanor.com/resources/lanzar-marca-complementos-alimenticios"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.gecanor.com/es/resources/lanzar-marca-complementos-alimenticios"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://www.gecanor.com/ca/resources/lanzar-marca-complementos-alimenticios"/>
+    <lastmod>2026-11-26</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.gecanor.com/es/resources/crear-marca-cosmetica-propia</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gecanor.com/resources/crear-marca-cosmetica-propia"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.gecanor.com/es/resources/crear-marca-cosmetica-propia"/>
@@ -181,6 +197,14 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gecanor.com/resources/fabricar-marca-de-cosmetica"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.gecanor.com/es/resources/fabricar-marca-de-cosmetica"/>
     <xhtml:link rel="alternate" hreflang="ca" href="https://www.gecanor.com/ca/resources/fabricar-marca-de-cosmetica"/>
+    <lastmod>2026-11-26</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.gecanor.com/ca/resources/lanzar-marca-complementos-alimenticios</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.gecanor.com/resources/lanzar-marca-complementos-alimenticios"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.gecanor.com/es/resources/lanzar-marca-complementos-alimenticios"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://www.gecanor.com/ca/resources/lanzar-marca-complementos-alimenticios"/>
     <lastmod>2026-11-26</lastmod>
     <priority>0.7</priority>
   </url>
