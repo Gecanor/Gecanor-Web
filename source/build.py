@@ -112,7 +112,10 @@ def head(page, lang, extra_ld=None, meta=None, path=None, langs=None, og_type='w
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="{OG_LOCALE[lang]}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/assets/gr.svg">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script type="application/ld+json">{ld}</script>
 <script src="/consent.js"></script>
 '''
@@ -567,6 +570,8 @@ def prerender(jobs):
               root.querySelectorAll('script,.sc-logic-error').forEach(n => n.remove());
               root.querySelectorAll('h1,h2,h3,h4').forEach(h => { if (!h.textContent.trim()) h.replaceWith(...h.childNodes); });
               root.querySelectorAll('video').forEach(v => { v.removeAttribute('autoplay'); v.removeAttribute('controls'); v.setAttribute('preload', 'none'); });
+              // tarjeta de Instagram: en el HTML estático se ve siempre la primera portada
+              root.querySelectorAll('img[src*="assets/ig-"]').forEach((img, i) => { img.style.opacity = i === 0 ? '1' : '0'; });
               const keep = [...document.head.children].filter(n =>
                 (n.tagName === 'STYLE') || (n.tagName === 'LINK' && /stylesheet|preconnect/.test(n.rel)));
               return [root.innerHTML, keep.map(n => n.outerHTML).join('\\n')];

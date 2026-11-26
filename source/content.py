@@ -273,9 +273,9 @@ OFFICE = {'street': 'C/ Balmes 127, Principal 2ºA', 'zip': '08008', 'city': 'Ba
 
 # H1 visible de la home (sustituye a la frase de introducción)
 HOME_H1 = {
-    'en': 'We develop cosmetic and food supplement brands, <br />from formula to launch.',
-    'es': 'Desarrollamos marcas de cosmética y complementos alimenticios, <br />de la fórmula al lanzamiento.',
-    'ca': 'Desenvolupem marques de cosmètica i complements alimentaris, <br />de la fórmula al llançament.',
+    'en': 'We develop cosmetic and food supplement brands, from formula to launch.',
+    'es': 'Desarrollamos marcas de cosmética y complementos alimenticios, de la fórmula al lanzamiento.',
+    'ca': 'Desenvolupem marques de cosmètica i complements alimentaris, de la fórmula al llançament.',
 }
 
 SERVICES_INTRO = {

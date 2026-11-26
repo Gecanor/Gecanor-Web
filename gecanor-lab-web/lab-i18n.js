@@ -103,11 +103,16 @@
     "59 articles": { "es": "59 artículos", "ca": "59 articles" },
     "60 articles": { "es": "60 artículos", "ca": "60 articles" },
     "Work with us!": { "es": "Trabaja con nosotros!", "ca": "Treballa amb nosaltres!" },
+    "We develop cosmetic and food supplement brands, from formula to launch.": { "es": "Desarrollamos marcas de cosmética y complementos alimenticios, de la fórmula al lanzamiento.", "ca": "Desenvolupem marques de cosmètica i complements alimentaris, de la fórmula al llançament." },
     "We are fully dedicated to create within": { "es": "Nos dedicamos por completo a crear en el ámbito", "ca": "Ens especialitzem en la creació de productes" },
     "the cosmetic and supplements space.": { "es": "de la cosmética y los complementos alimenticios.", "ca": "de cosmètica i complements alimentaris." },
   "Work": {
     "es": "Proyectos",
     "ca": "Projectes"
+  },
+  "Follow the lab": {
+    "es": "Síguenos",
+    "ca": "Segueix-nos"
   },
   "Studio": {
     "es": "Estudio",
