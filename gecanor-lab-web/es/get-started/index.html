@@ -406,6 +406,7 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;displayFont&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Satoshi&quot;,&quot;Instrument Sans Condensed&quot;,&quot;Archivo Condensed&quot;,&quot;Big Shoulders&quot;,&quot;Barlow Condensed&quot;,&quot;Saira Extra Condensed&quot;],&quot;default&quot;:&quot;Satoshi&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Typography&quot;}}">
 const SERVICES = ['Full Service','Formula Development','Product Manufacturing','Regulatory Management','Packaging Research','Logistics Management','Brand Strategy & Market Positioning'];
 const CONTACT_EMAIL = 'sonia@gecanor.com';
+const CC_EMAIL = 'david@gecanor.com';
 // Pega aquí la URL de la app web de Google Apps Script (termina en /exec). Vacío = no se guarda en la hoja.
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwWpxLkMniRBKy4ocll0z2OPzxjjjPQJSDawofE__XF4J5i-LkXShh7AbAqS-5gd4Vg/exec';
 const SHEET_FIELDS = ['Full name','Job title','Email','Phone','Company name','Website','Years in business','Company type','Product type','Category','Project budget (€)','First order quantity (units)','Year 1 projection (units)','Tell us more about your project'];
@@ -455,7 +456,7 @@ class Component extends DCLogic {
     e.preventDefault();
     if (this.state.status === 'sending') return;
     const form = e.currentTarget;
-    const data = { _subject: 'New project enquiry — Gecanor', _template: 'table', _captcha: 'false' };
+    const data = { _subject: 'New project enquiry — Gecanor', _template: 'table', _captcha: 'false', _cc: CC_EMAIL };
     form.querySelectorAll('label').forEach((label) => {
       const field = label.querySelector('input, select, textarea');
       if (!field) return;
